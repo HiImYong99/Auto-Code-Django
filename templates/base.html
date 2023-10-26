@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Coding</title>
+    <link href="{% static "dist/output.css" %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static "asset/img/favicon.ico" %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-GmarketSansMedium">
+    <!-- 상단 메뉴바 -->
+    <header>
+        <div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
+            <nav class="flex items-center flex-shrink-0 mr-6">
+                <a class="duration-500 hover:text-white" href="#">
+                    <span class="pl-2 text-2xl"> Auto Coding</span>
+                </a>
+            </nav>
+            <nav class="flex-grow hidden w-full pt-6 md:flex md:items-center md:w-auto md:pt-0" id="nav-content">
+                <ul class="items-center justify-end flex-1 list-reset md:flex">
+                    <li id="howto-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
+                            href="#how-to">사용법</a>
+                    </li>
+                    <li id="start-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                            href="#code-run">시작하기</a>
+                    </li>
+                    <li id="info-link" class="mr-3">
+                        <button
+                            class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 btn hover:text-gray-200"
+                            onclick="myCount.showModal()">내 통계</button>
+                        <dialog id="myCount" class="w-5/6 modal modal-bottom sm:modal-middle rounded-3xl opacity-95">
+                            <div class="px-10 py-8 text-center bg-gray-400 modal-box">
+                                <h3 class="text-4xl font-bold">내 통계 🗓️</h3>
+                                <section class="p-10">
+                                    <h2
+                                        class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                        내가 Auto Coding을 이용한
+                                        횟수는 </h2>
+                                    <p id="use-count" class="text-4xl text-center">0회</p>
+                                </section>
+                                <section class="p-10">
+                                    <h2
+                                        class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                        내가 가장 많이 사용한 언어는
+                                    </h2>
+                                    <p id="lang-count" class="text-4xl text-center">0회</p>
+                                </section>
+                                <section class="p-10">
+                                    <h2
+                                        class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                        가장 많이 사용한 기능은</h2>
+                                    <p id="method-count" class="text-4xl text-center">0회</p>
+                                </section>
+                                <div class="modal-action">
+                                    <form method="dialog">
+                                        <button
+                                            class="btn text-white  hover:text-black px-8 py-2.5 rounded-3xl bg-red-500 duration-500">닫기</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+                    </li>
+                    <li id="history-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
+                            href="#">내 기록</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="block md:hidden">
+                <button id="nav-toggle"
+                    class="flex items-center px-3 py-2 text-gray-500hover:text-white hover:border-white">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <title>Menu</title>
+                        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- 로고 이미지 -->
+        <h1 class="flex flex-col items-center justify-center">
+            <a href="#" class="cursor-default"><img src="{% static "asset/img/auto-coding-logo.png" %}"
+                    alt="Auto-Coding" width="600" height="400"></a>
+        </h1>
+    </header>
+
+    <main class="p-10">
+        <section>
+            <h2 class="items-center py-3 mb-12 text-3xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">🚀 주요
+                기능 🚀</h2>
+            <ul class="list-disc list-inside">
+                <li class="mb-6">
+                    자동 코드 생성: Auto Coding은 사용자의 요구에 기반하여 다양한 프로그래밍 언어로 필요한 코드를 자동으로 생성해드립니다. 어떤 작업이든, 우리의 인공지능
+                    모델이
+                    최상의
+                    코드를 제안합니다.
+                </li>
+                <li class="mb-6">
+                    지능적 리팩토링: 기존 코드의 효율성을 높이고 가독성을 개선하기 위한 리팩토링 작업도 저희에게 맡겨보세요. 모호한 부분을 파악하고, 중복을 제거하며, 더 나은
+                    코드로
+                    변환합니다.
+                </li>
+                <li class="mb-6">
+                    다양한 언어 지원: Java, Python, JavaScript, C++ 등 다양한 프로그래밍 언어를 지원합니다. 어떤 언어를 사용하든, Auto Coding이
+                    여러분의
+                    개발
+                    작업을 지원합니다.
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="py-3 mb-12 text-3xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium" id="how-to"> ❓
+                사용방법 ❓</h2>
+            <div class="relative w-1/2 mx-auto">
+                <div class="relative slide"> 
+                    <img class="object-cover max-w-full" src="asset/img/card-slide-1.png" alt="사용법1">
+                    <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40"> 1.
+                        사용하려는 언어 및 기능 선택
+                    </div>
+                </div>
+
+                <div class="relative slide">
+                    <img class="object-cover max-w-full" src="asset/img/card-slide-2.png" alt="사용법2">
+                    <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40">2. 코드
+                        or 요청사항 입력 후 요청버튼 클릭 ‼️
+                    </div>
+                </div>
+
+                <div class="relative slide">
+                    <img class="object-cover max-w-full" src="asset/img/card-slide-3.png" alt="사용법3">
+                    <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40">3. 잠시
+                        기다리면 요청한 코드가
+                        도착합니다!
+                    </div>
+                </div>
+                <div class="relative slide">
+                    <img class="object-cover max-w-full" src="asset/img/card-slide-4.png" alt="사용법4">
+                    <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40">4. 코드를
+                        실행해 보고 싶다면 실행하기 버튼을 눌러 빌드해 보세요!
+                    </div>
+                </div>
+
+
+                <a class="absolute left-0 p-4 text-white -translate-y-1/2 rounded-full cursor-pointer top-1/2 bg-black/30 hover:bg-black/50"
+                    onclick="moveSlide(-1)">❮</a>
+                <a class="absolute right-0 p-4 text-white -translate-y-1/2 rounded-full cursor-pointer top-1/2 bg-black/30 hover:bg-black/50"
+                    onclick="moveSlide(1)">❯</a>
+            </div>
+            <br>
+        </section>
+        <section>
+            <h2 class="py-3 mb-12 text-3xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">⚠️ 주의 사항 ⚠️</h2>
+            <ul class="list-disc list-inside ">
+                <li class="mb-6">
+                    이 인공지능 모델은 2021년까지의 정보까지만 학습되었습니다. 따라서 2021년 이후의 새로운 기술, 정보, 이벤트 등에 관한 정확하고 최신의 답변을 제공할 수 없을 수 있습니다.
+                    더
+                    나중의 정보에 대해서는 신중한 검증이 필요하며, 이 모델을 사용하실 때에는 이 점을 고려하여 주시기 바랍니다.
+                </li>
+                <li class="mb-6">
+                    이 인공지능 모델이 제공하는 코드나 답변은 항상 완벽하지 않을 수 있습니다. 어떤 상황에서는 올바른 결과를 제공하지 못할 수도 있으며, 개발 또는 문제 해결 과정에서 추가적인
+                    검증과
+                    수정이 필요할 수 있습니다. 따라서 모델이 생성한 코드나 답변을 사용하실 때에는 결과를 신중하게 검토하고 필요한 수정을 가하는 것이 중요합니다. 이 점을 유념하여 사용해주시기
+                    바랍니다
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="py-3 mb-12 text-3xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium" id="code-run">💻
+                시작하기
+                💻</h2>
+            <div class="flex flex-row flex-wrap justify-evenly">
+                <form action="post" id="user-form" class="flex flex-col">
+                    <label for="language" class="text-2xl font-bold text-center mb-9">유저 입력 💬</label>
+                    <label for="language" class="mb-4">프로그래밍 언어</label>
+                    <select name="lang" id="language" required class="p-2 mb-4 border invalid:text-black/30 rounded-xl">
+                        <option value="" disabled selected>언어를 선택하세요.</option>
+                        <option value="c">C</option>
+                        <option value="c++">C++</option>
+                        <option value="c#">C#</option>
+                        <option value="go">Go</option>
+                        <option value="java">Java</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="kotlin">Kotlin</option>
+                        <option value="python">Python3</option>
+                        <option value="swift">Swift</option>
+                    </select>
+                    <label for="method" class="mb-4">목적</label>
+                    <select name="method" id="method" required class="p-2 mb-4 border invalid:text-black/30 rounded-xl">
+                        <option value="" disabled selected>목적을 선택하세요.</option>
+                        <option value="기능구현">기능구현</option>
+                        <option value="리팩토링">리팩토링</option>
+                    </select>
+                    <label for="detail-content" class="mb-4">세부내용</label>
+                    <textarea name="detail" id="detail-content" cols="30" rows="10" placeholder="코드나 요청사항을 입력하세요."
+                        required spellcheck="false" class="px-6 py-4 mb-6 border resize-none rounded-xl"></textarea>
+                    <button type="submit"
+                        class="text-white bg-blue-500 px-3 py-2.5 rounded-3xl cursor-pointer mb-10 hover:bg-red-500 duration-200">요청
+                    </button>
+                </form>
+                <div class="flex flex-col w-96">
+                    <p class="text-2xl font-bold text-center mb-9">AI 🤖
+                    </p>
+                    <p class="mb-4">
+                        AI의 답변
+                    </p>
+                    <!-- 로딩 스피너 -->
+                    <div id="ai-answer" class="relative px-6 py-4 mb-6 overflow-auto border rounded-xl"
+                        style="min-width: 100%; max-height: 320px; min-height:68%;">
+                        <div class="absolute transform translate-x-1/2 translate-y-1/2 right-1/2 bottom-1/2">
+                            <div id="loading"
+                                class="hidden w-12 h-12 border-4 border-blue-500 border-solid rounded-full animate-spin border-t-transparent">
+                            </div>
+                        </div>
+                        <p id="explain">
+                            AI의
+                            답변이 제공됩니다.
+                        </p>
+                    </div>
+                    <button type="submit" id="submit-btn"
+                        class="text-white  bg-blue-500 px-3 py-2.5 rounded-3xl cursor-pointer mb-10 hover:bg-red-500 duration-200">코드
+                        실행해보기
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="flex flex-row items-center justify-between w-full px-12 py-3 mt-20" style="background-color:#ddd;">
+        <p class="text-sm font-bold">Copyright © Auto Coding 2023</p>
+        <nav>
+            <div class="flex flex-row gap-10 text-md">
+                <div class="rounded-full">
+                    <a href="https://www.instagram.com/yong.9_9/" target="_blank">
+                        <img class="w-10" src="{% static "asset/img/instagram.png" %}" alt="인스타그램">
+                    </a>
+                </div>
+                <div class="rounded-full">
+                    <a href="https://github.com/HiImYong99" target="_blank">
+                        <img class="w-10" src="{% static "asset/img/github.png" %}" alt="깃허브">
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </footer>
+    <script type="module" src="{% static "src/js/app.js" %}"></script>
+    <script type="module" src="{% static "src/js/api.js" %}"></script>
+    <script src="{% static "src/js/sliders.js" %}"></script>
+    <script src="{% static "src/js/mypage.js" %}"></script>
+    <script src="{% static "src/js/navbar.js" %}"></script>
+</body>
+
+</html>
