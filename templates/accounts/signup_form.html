@@ -1,0 +1,10 @@
+<form action="" method="post">
+    {% csrf_token %}  
+    <p>{{form.username.help_text}}</p>
+    <p><label for="{{ form.username.id_for_label }}">아이디:</label> {{form.username}}</p>
+    <p>{{form.password1.help_text}}</p>
+    <p><label for="{{ form.password1.id_for_label }}">비밀번호: </label>{{form.password1}}</p>
+    <p>{{form.password2.help_text}}</p>
+    <p><label for="{{ form.password2.id_for_label }}">비밀번호 확인: </label>{{form.password2}}</p>
+    <input type="submit" value='회원가입'>
+</form>
