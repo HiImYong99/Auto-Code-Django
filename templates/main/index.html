@@ -9,18 +9,19 @@
     </nav>
     <nav class="flex-grow hidden w-full pt-6 md:flex md:items-center md:w-auto md:pt-0" id="nav-content">
         <ul class="items-center justify-end flex-1 list-reset md:flex">            
-            <li id="start-link" class="mr-3">
-            <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
-                href="{% url "board:postlist" %}">게시판</a>
-            </li>
-            <li id="howto-link" class="mr-3">
+ 
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "board:postlist" %}">커뮤니티</a>
+                    </li>
+            {% comment %} <li id="howto-link" class="mr-3">
                 <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
                     href="#how-to">사용법</a>
             </li>
             <li id="start-link" class="mr-3">
                 <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
                     href="#code-run">시작하기</a>
-            </li>
+            </li> {% endcomment %}
             {% if user.is_authenticated %}
             <li id="info-link" class="mr-3">
                 <button
@@ -62,6 +63,19 @@
                 <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
                     href="#">내 기록</a>
             </li>
+            <li id="start-link" class="mr-3">
+                <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                    href="{% url "accounts:logout" %}">로그아웃</a>
+                </li>   
+                {% else %}
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "accounts:login" %}">로그인</a>
+                    </li>                  
+                    <li id="start-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                            href="{% url "accounts:signup" %}">회원가입</a>
+                        </li>  
         </ul>
     </nav>
     <div class="block md:hidden">
@@ -111,28 +125,29 @@
         사용방법 ❓</h2>
     <div class="relative w-1/2 mx-auto">
         <div class="relative slide"> 
-            <img class="object-cover max-w-full" src="asset/img/card-slide-1.png" alt="사용법1">
+            
+            <img class="object-cover max-w-full" src="{% static "asset/img/card-slide-1.png" %}" alt="사용법1">
             <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40"> 1.
                 사용하려는 언어 및 기능 선택
             </div>
         </div>
 
         <div class="relative slide">
-            <img class="object-cover max-w-full" src="asset/img/card-slide-2.png" alt="사용법2">
+            <img class="object-cover max-w-full" src="{% static "asset/img/card-slide-2.png" %}" alt="사용법2">
             <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40">2. 코드
                 or 요청사항 입력 후 요청버튼 클릭 ‼️
             </div>
         </div>
 
         <div class="relative slide">
-            <img class="object-cover max-w-full" src="asset/img/card-slide-3.png" alt="사용법3">
+            <img class="object-cover max-w-full" src="{% static "asset/img/card-slide-3.png" %}" alt="사용법3">
             <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40">3. 잠시
                 기다리면 요청한 코드가
                 도착합니다!
             </div>
         </div>
         <div class="relative slide">
-            <img class="object-cover max-w-full" src="asset/img/card-slide-4.png" alt="사용법4">
+            <img class="object-cover max-w-full" src="{% static "asset/img/card-slide-4.png" %}" alt="사용법4">
             <div class="absolute bottom-0 w-full px-5 py-3 font-bold text-center text-white bg-black/40">4. 코드를
                 실행해 보고 싶다면 실행하기 버튼을 눌러 빌드해 보세요!
             </div>

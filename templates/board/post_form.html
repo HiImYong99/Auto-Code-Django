@@ -1,5 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block header %}
+<div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
+    <nav class="flex items-center flex-shrink-0 mr-6">
+        <a class="duration-500 hover:text-white" href="{% url "main:index" %}">
+            <span class="pl-2 text-2xl"> Auto Coding</span>
+        </a>
+    </nav>
+    <nav class="flex-grow hidden w-full pt-6 md:flex md:items-center md:w-auto md:pt-0" id="nav-content">
+        <ul class="items-center justify-end flex-1 list-reset md:flex">            
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "board:postlist" %}">커뮤니티</a>
+                    </li>
+            {% if user.is_authenticated %}
+            <li id="info-link" class="mr-3">
+                <button
+                    class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 btn hover:text-gray-200"
+                    onclick="myCount.showModal()">내 통계</button>
+                <dialog id="myCount" class="w-5/6 modal modal-bottom sm:modal-middle rounded-3xl opacity-95">
+                    <div class="px-10 py-8 text-center bg-gray-400 modal-box">
+                        <h3 class="text-4xl font-bold">내 통계 🗓️</h3>
+                        <section class="p-10">
+                            <h2
+                                class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                내가 Auto Coding을 이용한
+                                횟수는 </h2>
+                            <p id="use-count" class="text-4xl text-center">0회</p>
+                        </section>
+                        <section class="p-10">
+                            <h2
+                                class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                내가 가장 많이 사용한 언어는
+                            </h2>
+                            <p id="lang-count" class="text-4xl text-center">0회</p>
+                        </section>
+                        <section class="p-10">
+                            <h2
+                                class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                가장 많이 사용한 기능은</h2>
+                            <p id="method-count" class="text-4xl text-center">0회</p>
+                        </section>
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button
+                                    class="btn text-white  hover:text-black px-8 py-2.5 rounded-3xl bg-red-500 duration-500">닫기</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+            </li>
+            <li id="history-link" class="mr-3">
+                <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
+                    href="#">내 기록</a>
+            </li>
+            <li id="start-link" class="mr-3">
+                <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                    href="{% url "accounts:logout" %}">로그아웃</a>
+                </li>   
+                {% else %}
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "accounts:login" %}">로그인</a>
+                    </li>                  
+                    <li id="start-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                            href="{% url "accounts:signup" %}">회원가입</a>
+                        </li>  
+        </ul>
+    </nav>
+    <div class="block md:hidden">
+        <button id="nav-toggle"
+            class="flex items-center px-3 py-2 text-gray-500hover:text-white hover:border-white">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+        </button>
+    </div>
+</div>      
+            {% endif %}
+
+{% endblock  %}
+{% block content %}
 <form action="" method='post' enctype="multipart/form-data">
-{% csrf_token %}
-{{form}}
+    {% csrf_token %}
+제목: {{form.title}}
+{{form.content}}
+이미지: {{form.img}}
+{{form.file}}
+{{form.category}}
+{{form.tags}}
     <button type='submit'>작성</button>
 </form>
+{% endblock  %}

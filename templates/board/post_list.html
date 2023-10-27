@@ -9,11 +9,10 @@
     </nav>
     <nav class="flex-grow hidden w-full pt-6 md:flex md:items-center md:w-auto md:pt-0" id="nav-content">
         <ul class="items-center justify-end flex-1 list-reset md:flex">            
-            <li id="start-link" class="mr-3">
-            <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
-                href="{% url "board:postlist" %}">게시판</a>
-            </li>
-
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "board:postlist" %}">커뮤니티</a>
+                    </li>
             {% if user.is_authenticated %}
             <li id="info-link" class="mr-3">
                 <button
@@ -55,11 +54,20 @@
                 <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
                     href="#">내 기록</a>
             </li>
+            <li id="start-link" class="mr-3">
+                <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                    href="{% url "accounts:logout" %}">로그아웃</a>
+                </li>   
+                {% else %}
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "accounts:login" %}">로그인</a>
+                    </li>                  
+                    <li id="start-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                            href="{% url "accounts:signup" %}">회원가입</a>
+                        </li>  
         </ul>
-        <li id="howto-link" class="mr-3">
-            <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
-                href="#how-to">로그아웃</a>
-        </li>
     </nav>
     <div class="block md:hidden">
         <button id="nav-toggle"
@@ -71,16 +79,20 @@
         </button>
     </div>
 </div>      
-        {% endif %}
+            {% endif %}
+
 {% endblock  %}
+
 {% block content %}
 <div class='mt-20'></div>
     <form action="" mehtod='get'>
         <input type="search" name='q'>
         <input type="submit" value='검색'>
     </form>
+    <a href="{% url "board:postcreate" %}">글 작성</a>
+    
     {% for post in post_list %}
-        <a href="{% url "board:postdetail" post.pk %}">{{post.title}}</a>
+        <p><a href="{% url "board:postdetail" post.pk %}">{{post.title}}</a></p>
     {% endfor %}
 {% endblock  %}
 
@@ -103,3 +115,4 @@
     </nav>
 </footer>
 {% endblock  %}
+

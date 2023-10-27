@@ -1,6 +1,6 @@
 <form action="" method="post">
     {% csrf_token %}
-    <p>username: {{form.username}}</p>
-    <p>password: {{form.password}}</p>
+    <p><label for="{{ form.username.id_for_label }}">아이디: </label>{{form.username}}</p>
+    <p><label for="{{ form.password.id_for_label }}">비밀번호: {{form.password}}</p>
     <input type="submit" value='로그인'>
 </form>
