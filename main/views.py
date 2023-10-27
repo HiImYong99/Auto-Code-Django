@@ -5,7 +5,3 @@ from django.views.generic import TemplateView
 
 class IndexView(TemplateView):
     template_name = 'main/index.html'
-
-
-class LandingView(TemplateView):
-    template_name = 'main/landing.html'
