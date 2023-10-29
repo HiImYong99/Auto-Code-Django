@@ -1,24 +1,34 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from .models import Post, Comment
 from .forms import PostForm, CommentForm, TagForm
 from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
+from django.db.models import Q
+from datetime import date
 # Create your views here.
 
 
 class PostListView(ListView):
     model = Post
     ordering = '-id'
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = date.today()
+        return context
 
     def get_queryset(self):
         qs = super().get_queryset()
         q = self.request.GET.get('q', '')
+        c = self.request.GET.get('c', '')
         if q:
-            qs = qs.filter(title__icontains=q)
+            qs = qs.filter(Q(title__icontains=q) & Q(category__icontains=c))
         return qs
 
 
@@ -29,9 +39,6 @@ class PostDetailView(DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
-        '''
-        여기서 원하는 쿼리셋이나 object를 추가한 후 템플릿으로 전달할 수 있습니다.
-        '''
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
         return context
@@ -50,6 +57,25 @@ class PostDetailView(DetailView):
 
 
 postdetail = PostDetailView.as_view()
+
+
+def comment_delete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post_id = comment.post.id
+    comment.delete()
+    return redirect('board:postdetail', post_id)
+
+
+@login_required
+def likes(request, pk):
+    if request.user.is_authenticated:
+        post = Post.objects.get(pk=pk)
+        if post.like_user.filter(pk=request.user.pk).exists():
+            post.like_user.remove(request.user)
+        else:            # 좋아요 추가 (add)
+            post.like_user.add(request.user)
+        return redirect('board:postdetail', pk=pk)
+    return redirect('accounts:login')
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

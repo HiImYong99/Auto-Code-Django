@@ -28,6 +28,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     view_count = models.PositiveIntegerField(default=0)
     tags = models.ManyToManyField('Tag', blank=True)
+    like_user = models.ManyToManyField(
+        User, related_name='like_posts')
 
     def __str__(self):
         return self.title
@@ -35,7 +37,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments'
+        Post, on_delete=models.CASCADE, related_name='comment'
     )
     writer = models.ForeignKey(
         User, on_delete=models.CASCADE
