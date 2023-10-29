@@ -94,8 +94,8 @@
                     <p class="text-sm">글쓴이: <a class="font-semibold hover:text-gray-800">{{post.writer}}</a></p>
                     <p >작성일 {{post.created_at|date:"Y년 m월 d일"}} {{ post.created_at|time:"G시 i분"}}</p>
                     <p>조회수 {{post.view_count}}</p>
-                    <a href="{% url "board:postupdate" post.pk %}">수정</a>
-                    <a href="{% url "board:postdelete" post.pk %}">삭제</a>                    
+                    <a class='w-10' href="{% url "board:postupdate" post.pk %}">수정</a>
+                    <a class='w-10' href="{% url "board:postdelete" post.pk %}">삭제</a>                    
                     <p class="pb-3">{{post.content}}</p>
                     {% if post.img %}
                     <img src="{{post.img.url}}" width='500px'>
@@ -103,8 +103,21 @@
 
                 </div>
             </article>
-
         </section>
+        <form action="{% url 'board:likes' post.pk %}" method='POST'>
+            {% csrf_token %}
+            <button class='' value='좋아요'>
+              {% if request.user in post.like_user.all %}
+              <p>❤️</p>
+              {% else %}
+                <p>🤍</p>
+              {% endif %}
+            </button>
+            <span class="small">
+              {{ post.like_user.all|length }} 명이 이 글을 좋아합니다.
+            </span>
+          </p>
+        </form>
             <div class="w-full flex p-6">          
                 {% with next_post=post.get_next_by_created_at %}
                 {% if next_post %}
@@ -124,10 +137,15 @@
                 {% endwith %}
             </div>
             <div>
-            <h3>댓글</h3>
-            {% for comment in post.comments.all %}
-                <p>{{comment.writer}}</p>
-                <p>{{comment.created_at}}</p>
+            <h3 class='mb-8'>댓글</h3>
+            {% for comment in post.comment.all %}
+                <p>작성자: {{comment.writer}}</p>
+                <p>내용: {{comment.message}}                 
+                    {% if comment.writer == user %}
+                    <a href="{% url 'board:comment_delete' comment.id %}" >
+                        <input class="cursor-pointer" type="button" value="❌"/></a>
+                    {% endif %}</p>
+                <p class='mb-6'>작성일: {{comment.created_at}}</p>
             {% endfor %}
             
             <form action="{% url 'board:comment_new' post.pk %}" method="post">
@@ -136,5 +154,4 @@
                 <input type="submit" value="댓글 작성">
             </form>
         </div>
-
         {% endblock  %}

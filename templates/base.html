@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Coding</title>
-    <link href="{% static "dist/output.css" %}" rel="stylesheet">
+    <link href="{% static "/dist/output.css" %}" rel="stylesheet">
     <link rel="shortcut icon" href="{% static "asset/img/favicon.ico" %}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -17,7 +17,7 @@
  {% block header %}{% endblock  %}
     </header>
     <!-- 메인컨텐츠 -->
-    <main class="p-10">
+    <main class="p-10 h-full">
       {% block content %}{% endblock  %}
     </main>
     <!-- Footer -->
