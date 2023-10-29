@@ -6,11 +6,11 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 # Create your views here.
 
-signup = CreateView.as_view(
-    form_class=UserCreationForm,
-    template_name='accounts/signup_form.html',
-    success_url=settings.LOGOUT_URL,
-)
+
+class UserCreateView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'accounts/signup_form.html'
+    success_url = settings.LOGOUT_URL
 
 
 class UserLoginView(LoginView):
