@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load widget_tweaks %}
 {% block header %}
 <div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
     <nav class="flex items-center flex-shrink-0 mr-6">
@@ -80,78 +81,160 @@
     </div>
 </div>      
             {% endif %}
-
 {% endblock  %}
 {% block content %}
-    <div class="container mx-auto flex flex-wrap py-6 mt-20">
-        <!-- Post Section -->
-        <section class="w-full flex flex-col items-center px-3">
-            <article class="flex flex-col w-full shadow my-4">
+<!-- component -->
+<div class="mt-20">
+    <div class=" px-10 py-6 mx-auto"> 
+          <!--author-->
+          <!--post categories-->
+          <div class="flex items-center justify-start mt-4 mb-4">
+              <a href="#"class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg hover:bg-gray-500 mr-4">{{post.category}}</a>
+           </div>
+          <div class="mt-2">
+              <!--post heading-->
+            <div class='flex justify-between'>
+                  <p href="#"
+                      class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold ">{{post.title}}
+                    </p>
+                    <p>
+                        {{ post.created_at|date:"Y.m.d" }} {{ post.created_at|date:"H:i" }} 
+                    </p>
+</div>
+                                    <!--author avator-->
+<div class='flex justify-between'>
+                     <div class="flex justify-start font-light text-gray-600">
+                        <a href="#" class="flex items-center mt-3 mb-3"><img
+                                src="https://avatars.githubusercontent.com/u/71964085?v=4"
+                                alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block">
+                            <h1 class="font-bold text-gray-700 hover:underline">{{post.writer}}</h1>
+                        </a>
+                  </div>
+                      <!--post views-->
+                      <div class="flex justify-end items-center mt-2">
+                        <p class="text-sm text-gray-400 font-bold mr-1">조회 수</p>
+                        <p class="text-sm bg-gray-100 rounded-full mr-2 py-2 px-4 hover:text-red-500">{{post.view_count}}</p>
+                        <p class="text-sm text-gray-400 font-bold mx-1">추천 수</p>
+                        <p class="text-sm bg-gray-100 rounded-full mr-2 py-2 px-4 hover:text-red-500">{{post.like_user.all|length}}</p>
+                    </div> 
+</div>
+{% if post.writer == user %}
+<div class='flex justify-end'>
+    <a class='w-10 mr-4 hover:text-red-500 duration-200' href="{% url "board:postupdate" post.pk %}">수정</a>
+    <a class='w-10  hover:text-red-500 duration-200' href="{% url "board:postdelete" post.pk %}">삭제</a>   
+</div>
+{% endif %}
+<hr class="h-px mt-2  bg-gray-200 border-0 ">
+</div>
+         <!--end post header-->
+              <!--post content-->
+   <div class=" mx-auto text-xl text-gray-700 mt-4 rounde">
 
-                <div class="bg-gray-100 flex flex-col justify-start p-6">
-                    <a class="text-blue-700 text-sm font-bold uppercase pb-4">{{post.category}}</a>
-                    <a class="text-3xl font-bold hover:text-gray-700 pb-4">{{post.title}}</a>
-                    <p class="text-sm">글쓴이: <a class="font-semibold hover:text-gray-800">{{post.writer}}</a></p>
-                    <p >작성일 {{post.created_at|date:"Y년 m월 d일"}} {{ post.created_at|time:"G시 i분"}}</p>
-                    <p>조회수 {{post.view_count}}</p>
-                    <a class='w-10' href="{% url "board:postupdate" post.pk %}">수정</a>
-                    <a class='w-10' href="{% url "board:postdelete" post.pk %}">삭제</a>                    
-                    <p class="pb-3">{{post.content}}</p>
-                    {% if post.img %}
-                    <img src="{{post.img.url}}" width='500px'>
-                {% endif %}
-
-                </div>
-            </article>
-        </section>
-        <form action="{% url 'board:likes' post.pk %}" method='POST'>
+       <!--content body-->
+       <div class="flex flex-col mt-2 p-8">
+              <p>{{post.content|safe}}</p>
+              {% if post.img %}
+                  <img class="flex items-center justify-center mt-10 max-w-2xl" src="{{ post.img.url }}">
+              {% endif %}
+       </div>
+          </div>
+          
+          <form action="{% url 'board:likes' post.pk %}" method='POST' class='flex justify-center text-xl mt-20'>
             {% csrf_token %}
             <button class='' value='좋아요'>
               {% if request.user in post.like_user.all %}
-              <p>❤️</p>
+              <div class="cursor-pointer">
+                <span class="flex space-x-1 items-center rounded-full hover:text-gray-400 text-rose-600 hover:bg-gray-700 bg-rose-50 py-1 px-6 text-xm font-medium">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                  <p class="font-semibold text-xm">{{post.like_user.all|length}}</p>
+                </span>
+              </div>
+                </div>
               {% else %}
-                <p>🤍</p>
+              <div class="cursor-pointer">
+                <span class="flex space-x-1 items-center rounded-full text-gray-400 hover:text-rose-600 bg-gray-700 hover:bg-rose-50 py-1 px-6 text-xm font-medium">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current hover:text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                  <p class="font-semibold text-xm">{{post.like_user.all|length}}</p>
+                </span>
               {% endif %}
             </button>
-            <span class="small">
-              {{ post.like_user.all|length }} 명이 이 글을 좋아합니다.
-            </span>
           </p>
         </form>
-            <div class="w-full flex p-6">          
-                {% with next_post=post.get_next_by_created_at %}
-                {% if next_post %}
-                <a href="{% url "board:postdetail" next_post.pk %}" class="w-1/2 bg-gray-100 shadow hover:shadow-md text-left p-6">
-                    <p class="text-lg text-blue-800 font-bold flex items-center"><i class="fas fa-arrow-left pr-1"></i>다음 글</p>
-                    <p class="pt-2">{{ next_post.title }}</p>
-                </a>
-                {% endif %}
-                {% endwith %}
-                {% with previous_post=post.get_previous_by_created_at %}
-                {% if previous_post %}
-                <a href="{% url "board:postdetail" previous_post.pk %}" class="w-1/2 bg-gray-100 shadow hover:shadow-md text-left p-6">
-                    <p class="text-lg text-blue-800 font-bold flex items-center"><i class="fas fa-arrow-left pr-1"></i> 이전 글</p>
-                    <p class="pt-2">{{ previous_post.title }}</p>
-                </a>
-                {% endif %}
-                {% endwith %}
-            </div>
-            <div>
-            <h3 class='mb-8'>댓글</h3>
-            {% for comment in post.comment.all %}
-                <p>작성자: {{comment.writer}}</p>
-                <p>내용: {{comment.message}}                 
-                    {% if comment.writer == user %}
-                    <a href="{% url 'board:comment_delete' comment.id %}" >
-                        <input class="cursor-pointer" type="button" value="❌"/></a>
-                    {% endif %}</p>
-                <p class='mb-6'>작성일: {{comment.created_at}}</p>
-            {% endfor %}
-            
-            <form action="{% url 'board:comment_new' post.pk %}" method="post">
+
+        <!-- 댓글 -->
+        <section class="bg-white  py-8 lg:py-16 antialiased">
+            <div class="max-w-2xl mx-auto px-4">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-lg lg:text-2xl font-bold text-gray-900 ">댓글 ({{post.comment.all|length}})</h2>
+              </div>
+              <form class="mb-6" action="{% url 'board:comment_new' post.pk %}" method='post'>
                 {% csrf_token %}
-                {{ comment_form.as_p }}
-                <input type="submit" value="댓글 작성">
-            </form>
+                  <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200  ">
+                      <label for="comment" class="sr-only">Your comment</label>
+                {{ comment_form.message|add_class:"px-0 w-full h-20 text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"}}
+                  </div>
+                  <button type="submit"
+                      class="inline-flex items-center py-2 px-4 text-base font-medium text-center text-white bg-blue-500 rounded-lg focus:ring-4 hover:bg-red-500 duration-200"> 등록
+                  </button>
+              </form>
+              {% for comment in post.comment.all %}
+              <article class="p-6 mb-3 text-base bg-white border-t border-gray-200  ">
+                <footer class="flex justify-between items-center mb-2">
+                    <div class="flex items-center">
+                        <p class="inline-flex items-center mr-3 text-sm text-gray-900  font-semibold"><img
+                                class="mr-2 w-6 h-6 rounded-full"
+                                src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+                                alt="Bonnie Green">{{comment.writer}}</p>
+                        <p class="text-sm text-gray-600 ">{{ comment.created_at|date:"Y.m.d" }} {{ comment.created_at|date:"H:i" }} </p>
+                   </div>
+                   {% if comment.writer == user %}
+                   <button class="text-gray-400 hover:underline hover:bg-gray-100 "onclick="commentConfirmDelete()">삭제</button>
+                   {% endif %}
+                    <script>
+                        function commentConfirmDelete() {
+                            var result = confirm("삭제하시겠습니까??");
+                            if (result) {
+                                window.location.href = "{% url 'board:comment_delete' pk=comment.id %}"
+                            } else {
+                            }
+                        }
+                        </script>   
+                </footer>
+                <p class="">{{comment.message}}</p>
+                {% comment %} <div class="flex items-center mt-4 space-x-4">
+                    <button type="button"
+                        class="flex items-center text-sm text-gray-500 hover:underline  font-medium">
+                        <svg class="mr-1.5 w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+                        </svg>
+                        Reply
+                    </button>
+                </div> {% endcomment %}
+            </article>
+            {% endfor %}
+            </div>
+          </section>
+            <!--related posts-->
+        <div class="w-full flex flex-row justify-evenly p-6 px-11">          
+          {% with previous_post=post.get_previous_by_created_at %}
+          {% if previous_post %}
+          <a href="{% url "board:postdetail" previous_post.pk %}" class="w-1/3 bg-gray-100 shadow hover:shadow-md text-left p-6">
+              <p class="text-lg text-blue-800 font-bold flex items-center"><i class="fas fa-arrow-left pr-1"></i> 이전 글</p>
+              <p class="pt-2">{{ previous_post.title }}</p>
+          </a>
+          {% endif %}
+          {% endwith %}
+          {% with next_post=post.get_next_by_created_at %}
+          {% if next_post %}
+          <a href="{% url "board:postdetail" next_post.pk %}" class="w-1/3 bg-gray-100 shadow hover:shadow-md text-left p-6">
+              <p class="text-lg text-blue-800 font-bold flex items-center"><i class="fas fa-arrow-left pr-1"></i>다음 글</p>
+              <p class="pt-2">{{ next_post.title }}</p>
+          </a>
+          {% endif %}
+          {% endwith %}
         </div>
         {% endblock  %}

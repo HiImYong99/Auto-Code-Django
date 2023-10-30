@@ -27,7 +27,7 @@ class PostListView(ListView):
         qs = super().get_queryset()
         q = self.request.GET.get('q', '')
         c = self.request.GET.get('c', '')
-        if q:
+        if q or c:
             qs = qs.filter(Q(title__icontains=q) & Q(category__icontains=c))
         return qs
 
@@ -109,7 +109,7 @@ postupdate = PostUpdateView.as_view()
 
 class PostDeleteView(UserPassesTestMixin, DeleteView):
     model = Post
-    success_url = reverse_lazy('board:postlsit')
+    success_url = reverse_lazy('board:postlist')
 
     def test_func(self):
         return self.get_object().writer == self.request.user

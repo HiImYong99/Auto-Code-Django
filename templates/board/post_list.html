@@ -91,13 +91,13 @@
               <table class="min-w-full divide-y divide-gray-200">
         <thead>
             <tr>
-                <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">주제</th>
-              <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">제목</th>
-              <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">댓글</th>
-              <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">작성자</th>
-              <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">날짜</th>
-              <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">조회수</th>
-              <th scope="col" class="px-6 py-3 text-left text-lg font-medium text-gray-500">좋아요</th>
+                <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">주제</th>
+              <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">제목</th>
+              <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">댓글</th>
+              <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">작성자</th>
+              <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">날짜</th>
+              <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">조회수</th>
+              <th scope="col" class="px-6 py-3 text-left text-xl font-medium text-gray-500">좋아요</th>
             </tr>
         </thead>
         <tbody>
@@ -105,13 +105,13 @@
     <tr class="bg-white hover:bg-gray-100">
         <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-800">{{post.category}} </td>
         {% if post.img %}
-        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800"><a href="{% url "board:postdetail" post.pk %}">{{post.title}} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline">
+        <td class="px-6 py-4 whitespace-nowrap text-base text-blue-700 underline underline-offset-4 "><a href="{% url "board:postdetail" post.pk %}">{{post.title}} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline">
             <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
           </svg>
           
           </a></td>
         {% else %}
-        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800"><a href="{% url "board:postdetail" post.pk %}">{{post.title}}</a></td>
+        <td class="px-6 py-4 whitespace-nowrap text-base text-blue-700 underline"><a href="{% url "board:postdetail" post.pk %}">{{post.title}}</a></td>
         {% endif %}
         <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">{{post.comment.all|length}}</td>
         <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">{{post.writer}}</td>
@@ -140,7 +140,7 @@
             {% endif %}
           </div>
 <div class="flex flex-row justify-end">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postcreate" %}'">
+                <button class="bg-blue-500 hover:bg-red-500 duration-200 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postcreate" %}'">
                     글 쓰기
                   </button>
 </div>
@@ -157,7 +157,7 @@
           </select>
               <div class="relative w-full">
                   <input type="search" name="q" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 " placeholder="제목을 입력하세요">
-                  <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-500 rounded-r-lg border border-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"><svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-500 rounded-r-lg border border-blue-500 hover:bg-red-500 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300"><svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </svg>
       </button>
