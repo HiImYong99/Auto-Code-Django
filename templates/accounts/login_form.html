@@ -1,46 +1,21 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 {% load static %}
-{% block header %}
-<div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
-    <nav class="flex items-center flex-shrink-0 mr-6">
-        <a class="duration-500 hover:text-white" href="{% url "main:index" %}">
-            <span class="pl-2 text-2xl"> Auto Coding</span>
-        </a>
-    </nav>
-    <nav class="flex-grow hidden w-full pt-6 md:flex md:items-center md:w-auto md:pt-0" id="nav-content">
-        <ul class="items-center justify-end flex-1 list-reset md:flex">            
-                <li id="start-link" class="mr-3">
-                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
-                        href="{% url "board:postlist" %}">커뮤니티</a>
-                    </li>                    
-                <li id="start-link" class="mr-3">
-                        <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
-                            href="{% url "accounts:signup" %}">회원가입</a>
-                </li>  
-        </ul>
-    </nav>
-    <div class="block md:hidden">
-        <button id="nav-toggle"
-            class="flex items-center px-3 py-2 text-gray-500hover:text-white hover:border-white">
-            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <title>Menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-        </button>
-    </div>
-</div>      
 
-{% endblock  %}
 {% block content %}
 
 <section>
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl">
-                    Auto Coding
-                </h1>
+               <a href='{% url "main:index" %}'>
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl">
+                        Auto Coding
+                    </h1>       
+               </a>         
+                <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                    로그인
+                </h2>
                 <form class="space-y-4 md:space-y-6" action="" method="post">
                     {% csrf_token %}
                     <div>
@@ -51,8 +26,8 @@
                         <label for="{{ form.password.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">비밀번호</label>
                         <p>{{form.password|add_class:"bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"|attr:"placeholder: 비밀번호"}}</p>
                     </div>
-                    <button type="submit" class="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">로그인</button>
-                    <p class="text-sm font-light ">계정이 없으신가요? <a href="{% url "accounts:signup" %}" class="font-medium text-primary-600 hover:underline text-blue-500">회원가입</a>
+                    <button type="submit" class="w-full text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-red-500 duration-200">로그인</button>
+                    <p class="text-sm font-light ">계정이 없으신가요? <a href="{% url "accounts:signup" %}" class="font-medium text-primary-600 hover:underline text-blue-500 ">회원가입</a>
                     </p>
                 </form>
             </div>
