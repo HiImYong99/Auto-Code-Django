@@ -9,8 +9,26 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
+import os
+import json
+from django.core.exceptions import ImproperlyConfigured
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,14 +151,15 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/'
 LOGOUT_URL = '/'
 
+GOOGLE_ID = get_secret("Google_id")
+GOOGLE_PW = get_secret("Google_pw")
+
 AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'good19422@gmail.com'
-# 발신할 이메일
-EMAIL_HOST_PASSWORD = 'pkwosbvqlbkwhcrs'
-# 발신할 메일의 비밀번호
+EMAIL_HOST_USER = GOOGLE_ID
+EMAIL_HOST_PASSWORD = GOOGLE_PW
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_USE_TLS = True
