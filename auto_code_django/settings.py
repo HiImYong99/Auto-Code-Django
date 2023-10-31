@@ -132,3 +132,5 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = '/'
 LOGOUT_URL = '/'
+
+AUTH_USER_MODEL = 'accounts.User'

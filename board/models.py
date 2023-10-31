@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
+import accounts
+
 # Create your models here.
 
 category_select = (
@@ -14,7 +16,7 @@ category_select = (
 
 class Post(models.Model):
     writer = models.ForeignKey(
-        User, on_delete=models.CASCADE
+        'accounts.User', on_delete=models.CASCADE
     )
     title = models.CharField(max_length=30)
     content = models.TextField()
@@ -29,7 +31,7 @@ class Post(models.Model):
     view_count = models.PositiveIntegerField(default=0)
     tags = models.ManyToManyField('Tag', blank=True)
     like_user = models.ManyToManyField(
-        User, related_name='like_posts')
+        'accounts.User', related_name='like_posts', blank=True)
 
     def __str__(self):
         return self.title
@@ -40,7 +42,7 @@ class Comment(models.Model):
         Post, on_delete=models.CASCADE, related_name='comment'
     )
     writer = models.ForeignKey(
-        User, on_delete=models.CASCADE
+        'accounts.User', on_delete=models.CASCADE
     )
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
