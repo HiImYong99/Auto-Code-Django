@@ -1,6 +1,7 @@
+from django.core.mail.message import EmailMessage
 from django.conf import settings
 from django.shortcuts import redirect, render
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetConfirmView
 # from django.contrib.auth.forms import UserChangeForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView
@@ -10,6 +11,7 @@ from board.models import Post, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from .forms import CheckPasswordForm
 from django.contrib.auth.decorators import login_required
+from django.core.mail.message import EmailMessage
 
 # Create your views here.
 
@@ -62,16 +64,28 @@ class EditProfileView(UpdateView, LoginRequiredMixin):
         return self.request.user
 
 
-@login_required
-def profile_delete_view(request):
-    if request.method == 'POST':
-        password_form = CheckPasswordForm(request.user, request.POST)
+class MyPasswordResetView(PasswordResetView):
+    success_url = reverse_lazy('accounts:login')
+    template_name = 'accounts/password_reset_form.html'
+    email_template_name = 'accounts/password_reset.html'
+    mail_title = "비밀번호 재설정"
 
-        if password_form.is_valid():
-            request.user.delete()
-            logout(request)
-            return redirect('/users/login/')
-    else:
-        password_form = CheckPasswordForm(request.user)
+    def form_valid(self, form):
+        return super().form_valid(form)
 
-    return render(request, 'accounts/profile_delete.html', {'password_form': password_form})
+
+class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    success_url = reverse_lazy('accounts:login')
+    template_name = 'accounts/password_reset_confirm.html'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+def send_email(request):
+    subject = "메시지"
+    to = ['good19422@naver.com']
+    from_email = 'good19422@gmail.com'
+    message = "메시지를 성공적으로 전송"
+    EmailMessage(subject=subject, body=message,
+                 to=to, from_email=from_email).send()

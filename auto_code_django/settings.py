@@ -134,3 +134,15 @@ LOGIN_URL = '/'
 LOGOUT_URL = '/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'good19422@gmail.com'
+# 발신할 이메일
+EMAIL_HOST_PASSWORD = 'pkwosbvqlbkwhcrs'
+# 발신할 메일의 비밀번호
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_TLS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
