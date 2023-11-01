@@ -35,6 +35,29 @@ class PostListView(ListView):
 postlist = PostListView.as_view()
 
 
+class PopularPostListView(ListView):
+    model = Post
+    ordering = '-id'
+    paginate_by = 5
+    template_name = 'board/popular_post_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = date.today()
+        return context
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        q = self.request.GET.get('q', '')
+        c = self.request.GET.get('c', '')
+        if q or c:
+            qs = qs.filter(Q(title__icontains=q) & Q(category__icontains=c))
+        return qs
+
+
+popular_postlist = PopularPostListView.as_view()
+
+
 class PostDetailView(DetailView):
     model = Post
 
@@ -57,25 +80,6 @@ class PostDetailView(DetailView):
 
 
 postdetail = PostDetailView.as_view()
-
-
-def comment_delete(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    post_id = comment.post.id
-    comment.delete()
-    return redirect('board:postdetail', post_id)
-
-
-@login_required
-def likes(request, pk):
-    if request.user.is_authenticated:
-        post = Post.objects.get(pk=pk)
-        if post.like_user.filter(pk=request.user.pk).exists():
-            post.like_user.remove(request.user)
-        else:            # 좋아요 추가 (add)
-            post.like_user.add(request.user)
-        return redirect('board:postdetail', pk=pk)
-    return redirect('accounts:login')
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -107,15 +111,21 @@ class PostUpdateView(UserPassesTestMixin, UpdateView):
 postupdate = PostUpdateView.as_view()
 
 
-class PostDeleteView(UserPassesTestMixin, DeleteView):
-    model = Post
-    success_url = reverse_lazy('board:postlist')
+# class PostDeleteView(UserPassesTestMixin, DeleteView):
+#     model = Post
+#     success_url = reverse_lazy('board:postlist')
 
-    def test_func(self):
-        return self.get_object().writer == self.request.user
+#     def test_func(self):
+#         return self.get_object().writer == self.request.user
 
 
-postdelete = PostDeleteView.as_view()
+# postdelete = PostDeleteView.as_view()
+
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('board:postlist')
 
 
 @login_required
@@ -135,3 +145,22 @@ def comment_new(request, pk):
     return render(request, 'board/post_form.html', {
         'form': form,
     })
+
+
+def comment_delete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    post_id = comment.post.id
+    comment.delete()
+    return redirect('board:postdetail', post_id)
+
+
+@login_required
+def likes(request, pk):
+    if request.user.is_authenticated:
+        post = Post.objects.get(pk=pk)
+        if post.like_user.filter(pk=request.user.pk).exists():
+            post.like_user.remove(request.user)
+        else:            # 좋아요 추가 (add)
+            post.like_user.add(request.user)
+        return redirect('board:postdetail', pk=pk)
+    return redirect('accounts:login')
