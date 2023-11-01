@@ -29,7 +29,10 @@
                     onclick="myCount.showModal()">내 통계</button>
                 <dialog id="myCount" class="w-5/6 modal modal-bottom sm:modal-middle rounded-3xl opacity-95">
                     <div class="px-10 py-8 text-center bg-gray-400 modal-box">
-                        <h3 class="text-4xl font-bold">내 통계 🗓️</h3>
+                        <h3 class="text-4xl font-bold">내 통계 🗓️</h3>                        
+                        <p class='mt-5 text-red-600'>
+                            개인 통계는 로컬 스토리지를 활용하여 임시로 저장되며, 사용자 각자의 기기에만 저장됩니다. <br>
+                            계정에는 정보가 저장되지 않으니 안심하고 통계를 확인해보세요!</p>
                         <section class="p-10">
                             <h2
                                 class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
@@ -61,7 +64,7 @@
             </li>
             <li id="history-link">
                 <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
-                    href="#">내 기록</a>
+                    href="{% url "main:myhistory" %}">내 기록</a>
             </li>
         </li>
         <li>
