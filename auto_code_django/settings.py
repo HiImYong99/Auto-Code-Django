@@ -13,9 +13,11 @@ from pathlib import Path
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
-import my_settings
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from decouple import config
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+SECRET_KEY = config("SECRET_KEY")
 # secret_file = os.path.join(BASE_DIR, '.config_secret/secrets.json')
 
 # with open(secret_file) as f:
