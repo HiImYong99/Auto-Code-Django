@@ -15,22 +15,6 @@ import json
 from django.core.exceptions import ImproperlyConfigured
 from decouple import config
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-
-# secret_file = os.path.join(BASE_DIR, '.config_secret/secrets.json')
-
-# with open(secret_file) as f:
-#     secrets = json.loads(f.read())
-
-
-# def get_secret(setting, secrets=secrets):
-#     try:
-#         return secrets[setting]
-#     except KeyError:
-#         error_msg = "Set the {} environment variable".format(setting)
-#         raise ImproperlyConfigured(error_msg)
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,13 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+# SECRET_KEY = config("SECRET_KEY")
 
+SECRET_KEY = 'django-insecure-iax1!&rsz3t%=43z2r*u##w!y07z+qh21!7ny!+m-^^7m$s3-b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     '15.164.106.140',
+    # '*',
 ]
 
 
@@ -160,10 +146,10 @@ AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = config("GOOGLE_ID")
-EMAIL_HOST_PASSWORD = config("GOOGLE_PW")
+# EMAIL_HOST_USER = config("GOOGLE_ID")
+# EMAIL_HOST_PASSWORD = config("GOOGLE_PW")
 
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_USE_TLS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
