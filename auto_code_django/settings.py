@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-secret_file = os.path.join(BASE_DIR, './.config_secret/secrets.json')
+secret_file = os.path.join(BASE_DIR, '.config_secret/secrets.json')
 
 with open(secret_file) as f:
     secrets = json.loads(f.read())
