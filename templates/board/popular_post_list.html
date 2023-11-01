@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}
+<div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
+    <nav class="flex items-center flex-shrink-0 mr-6">
+        <a class="duration-500 hover:text-white" href="{% url "main:index" %}">
+            <span class="pl-2 text-2xl"> Auto Coding</span>
+        </a>
+    </nav>
+    <nav class="flex-grow hidden w-full pt-6 md:flex md:items-center md:w-auto md:pt-0" id="nav-content">
+        <ul class="items-center justify-end flex-1 list-reset md:flex">            
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "board:postlist" %}">커뮤니티</a>
+                    </li>
+            {% if user.is_authenticated %}
+            <li id="info-link" class="mr-3">
+                <button
+                    class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 btn hover:text-gray-200"
+                    onclick="myCount.showModal()">내 통계</button>
+                <dialog id="myCount" class="w-5/6 modal modal-bottom sm:modal-middle rounded-3xl opacity-95">
+                    <div class="px-10 py-8 text-center bg-gray-400 modal-box">
+                        <h3 class="text-4xl font-bold">내 통계 🗓️</h3>
+                        <p class='mt-5 text-red-600'>
+                            개인 통계는 로컬 스토리지를 활용하여 임시로 저장되며, 사용자 각자의 기기에만 저장됩니다. <br>
+                            계정에는 정보가 저장되지 않으니 안심하고 통계를 확인해보세요!</p>
+                        <section class="p-10">
+                            <h2
+                                class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                내가 Auto Coding을 이용한
+                                횟수는 </h2>
+                            <p id="use-count" class="text-4xl text-center">0회</p>
+                        </section>
+                        <section class="p-10">
+                            <h2
+                                class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                내가 가장 많이 사용한 언어는
+                            </h2>
+                            <p id="lang-count" class="text-4xl text-center">0회</p>
+                        </section>
+                        <section class="p-10">
+                            <h2
+                                class="py-3 mb-10 text-xl text-center bg-gray-200 rounded-2xl font-GongGothicMedium">
+                                가장 많이 사용한 기능은</h2>
+                            <p id="method-count" class="text-4xl text-center">0회</p>
+                        </section>
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button
+                                    class="btn text-white  hover:text-black px-8 py-2.5 rounded-3xl bg-red-500 duration-500">닫기</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+            </li>
+            <li id="history-link">
+                <a class="inline-block px-4 py-2 text-gray-800 no-underline duration-500 hover:text-gray-200 hover:text-underline"
+                href="{% url "main:myhistory" %}">내 기록</a>
+            </li>
+        </li>
+        <li>
+            <nav :class="{'flex': open, 'hidden': !open}"
+            class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+            <div @click.away="open = false" class="relative" x-data="{ open: false }">
+                <button @click="open = !open"
+                    class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 text-sm  text-left bg-transparent duration-500 hover:text-gray-200 md:w-auto md:inline md:mt-0 md:ml-4  focus:bg-gray-200 focus:bg-opacity-50 rounded-full focus:outline-none focus:shadow-outline">
+                    <span>{{user.nickname}}</span>
+                    {% if user.profile_pic %}
+                    <img class="inline h-6 rounded-full"
+                        src="{{user.profile_pic.url}}">
+                        {% else %}
+                        <svg class="text-gray-300 inline h-6 rounded-full" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
+                      </svg>
+                    {% endif %}
+                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                        class="inline w-4 h-4 transition-transform duration-200 transform">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95"
+                    class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                    <div class="py-2 bg-white text-sm rounded-sm border border-main-color shadow-sm">
+                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="{% url "accounts:profile" %}">내 정보</a>
+                        <div class="border-b"></div>
+                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="{% url "accounts:edit_profile" %}">설정</a>                        
+                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="{% url "accounts:logout" %}">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+            </nav>
+        </li>   
+                {% else %}
+                <li id="start-link" class="mr-3">
+                    <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                        href="{% url "accounts:login" %}">로그인</a>
+                    </li>                  
+                    <li id="start-link" class="mr-3">
+                        <a class="inline-block px-4 py-2 text-gray-800 duration-500 hover:text-gray-200"
+                            href="{% url "accounts:signup" %}">회원가입</a>
+                        </li>  
+                        {% endif %}
+        </ul>
+    </nav>
+    <div class="block md:hidden">
+        <button id="nav-toggle"
+            class="flex items-center px-3 py-2 text-gray-500hover:text-white hover:border-white">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+        </button>
+    </div>
+    </div>      
+{% endblock  %}
+
+{% block content %}
+<div class='mt-36 flex flex-col justify-center items-center'>
+    <div class="flex flex-col w-full h-full">
+        <div class="-m-1.5 overflow-x-auto">
+          <div class="p-1.5 min-w-full inline-block align-middle">
+            <div class="overflow-hidden">
+              <table class="min-w-full divide-y divide-gray-200">
+        <thead>
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">주제</th>
+              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">제목</th>
+              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">댓글</th>
+              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">작성자</th>
+              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">날짜</th>
+              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">조회수</th>
+              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">좋아요</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for post in post_list %}
+    {% if post.like_user.all|length >= 2 %}
+    <tr class="bg-white hover:bg-gray-100">
+        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-800">{{post.category}} </td>
+        {% if post.img %}
+        <td class="px-6 py-4 whitespace-nowrap text-base text-blue-700 underline underline-offset-8 "><a href="{% url "board:postdetail" post.pk %}">{{post.title}} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline">
+            <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+          </svg>
+          
+          </a></td>
+        {% else %}
+        <td class="px-6 py-4 whitespace-nowrap text-base text-blue-700 underline underline-offset-8"><a href="{% url "board:postdetail" post.pk %}">{{post.title}}</a></td>
+        {% endif %}
+        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">{{post.comment.all|length}}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">{{post.writer.nickname}}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">    
+            {% if post.created_at.date == today %}
+                {{ post.created_at|date:"H:i" }}
+            {% else %}
+                {{ post.created_at|date:"Y.m.d" }} <!-- 그 외에는 일자 표시 -->
+            {% endif %}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">{{post.view_count}}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-base text-red-500">{{post.like_user.all|length}}</td>
+</tr>
+{% endif %}
+    {% endfor %}
+</tbody>
+</table>
+ <div class="text-base mt-5">
+        <div class='pagination flex flex-row justify-center'>
+            {% if page_obj.has_previous %}
+              <a href='{% url "board:postlist" %}?page={{ page_obj.previous_page_number }}'>이전 </a>
+            {% endif %}
+            <span class='mx-4'>
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+              <a href='{% url "board:postlist" %}?page={{ page_obj.next_page_number }}' > 다음 </a>
+            {% endif %}
+          </div>
+<div class="flex flex-row justify-between">
+    <button class="bg-gray-400 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postlist"%}'">
+        목록
+      </button>                
+      <button class="bg-blue-500 hover:bg-red-500 duration-200 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postcreate" %}'">
+        글 쓰기
+      </button>
+</div>
+ </div>
+    </div>
+    <div class="flex flex-row justify-center">
+        <form action="" mehtod='get' class='flex flex-row w-1/3 mt-5'>
+          <select name="c" id="category" class="p-2 mb-4 mr-2 border rounded-xl">
+              <option value="">전체</option>
+              <option value="자유">자유</option>
+              <option value="질문">질문</option>
+              <option value="고민">고민</option>
+              <option value="스터디">스터디</option>
+          </select>
+              <div class="relative w-full">
+                  <input type="search" name="q" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 " placeholder="제목을 입력하세요">
+                  <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-500 rounded-r-lg border border-blue-500 hover:bg-red-500 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300"><svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+      </button>
+          </div>
+      </form>
+</div>
+{% endblock  %}
+
+{% block footer %}
+<footer class="flex flex-row fixed bottom-0 items-center justify-between w-full px-12 py-3 mt-20" style="background-color:#ddd;">
+    <p class="text-sm font-bold">Copyright © Auto Coding 2023</p>
+    <nav>
+        <div class="flex flex-row gap-10 text-md">
+            <div class="rounded-full">
+                <a href="https://www.instagram.com/yong.9_9/" target="_blank">
+                    <img class="w-10" src="{% static "asset/img/instagram.png" %}" alt="인스타그램">
+                </a>
+            </div>
+            <div class="rounded-full">
+                <a href="https://github.com/HiImYong99" target="_blank">
+                    <img class="w-10" src="{% static "asset/img/github.png" %}" alt="깃허브">
+                </a>
+            </div>
+        </div>
+    </nav>
+</footer>
+{% endblock  %}
+
