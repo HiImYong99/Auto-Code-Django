@@ -143,4 +143,4 @@ package.json
 tailwind.config.js
 node_modules
 .ssh
-!secrets.json
+!.config_secret/
