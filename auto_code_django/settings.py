@@ -13,21 +13,21 @@ from pathlib import Path
 import os
 import json
 from django.core.exceptions import ImproperlyConfigured
-
+import my_settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-secret_file = os.path.join(BASE_DIR, '.config_secret/secrets.json')
+# secret_file = os.path.join(BASE_DIR, '.config_secret/secrets.json')
 
-with open(secret_file) as f:
-    secrets = json.loads(f.read())
+# with open(secret_file) as f:
+#     secrets = json.loads(f.read())
 
 
-def get_secret(setting, secrets=secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {} environment variable".format(setting)
-        raise ImproperlyConfigured(error_msg)
+# def get_secret(setting, secrets=secrets):
+#     try:
+#         return secrets[setting]
+#     except KeyError:
+#         error_msg = "Set the {} environment variable".format(setting)
+#         raise ImproperlyConfigured(error_msg)
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,7 +38,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-iax1!&rsz3t%=43z2r*u##w!y07z+qh21!7ny!+m-^^7m$s3-b'
+SECRET_KEY = my_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -153,8 +153,8 @@ MEDIA_URL = '/media/'
 LOGIN_URL = '/'
 LOGOUT_URL = '/'
 
-GOOGLE_ID = get_secret("Google_id")
-GOOGLE_PW = get_secret("Google_pw")
+GOOGLE_ID = my_settings.GOOGLE_ID
+GOOGLE_PW = my_settings.GOOGLE_PW
 
 AUTH_USER_MODEL = 'accounts.User'
 
