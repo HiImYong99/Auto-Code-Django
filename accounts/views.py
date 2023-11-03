@@ -50,6 +50,7 @@ class ProfileView(TemplateView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['posts'] = Post.objects.filter(writer=self.request.user)
+        context['likes'] = Post.objects.filter(like_user=self.request.user)
         context['comments'] = Comment.objects.filter(writer=self.request.user)
         return context
 
