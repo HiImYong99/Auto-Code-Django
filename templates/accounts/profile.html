@@ -204,7 +204,6 @@
 
                 <!-- Experience and education -->
                 <div class="bg-white p-3 shadow-sm rounded-sm">
-
                     <div class="grid grid-cols-3">
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -241,9 +240,9 @@
                                     <a href="{% url "board:postdetail" comment.post.pk %}" class="text-blue-800 cursor-pointer">{{comment.message}}</a>                  
                                     <div class="text-gray-500 text-xs">{{comment.created_at|date:"Y-m-d"}} {{comment.created_at|date:"H:i"}}</div>
                                 </li>
+                                {% endfor %}
                             </ul>
                         </div>
-                    {% endfor %}
                     <!-- End of Experience and education grid -->
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -254,21 +253,20 @@
                                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </span>
-                                <span class="tracking-wide">내 글 </span>
+                                <span class="tracking-wide">내 좋아요 </span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for post in posts %}
+                                {% for post in likes %}
                                 <li>
                                     <a href="{% url "board:postdetail" post.pk %}" class="text-blue-800 cursor-pointer">{{post.title}}</a>
                                     <div class="text-gray-500 text-xs">{{post.created_at|date:"Y-m-d"}} {{post.created_at|date:"H:i"}}</div>
                                 </li>
                                 {% endfor %}
                             </ul>
-                        </div>
 
+                        </div>
             <!-- End of Experience and education grid -->
                 <!-- End of profile tab -->
-            </div>
         </div>
     </div>
 </div>
