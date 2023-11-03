@@ -65,7 +65,7 @@ class EditProfileView(UpdateView, LoginRequiredMixin):
 
 
 class MyPasswordResetView(PasswordResetView):
-    success_url = reverse_lazy('accounts:login')
+    success_url = reverse_lazy('accounts:password_email_done')
     template_name = 'accounts/password_reset_form.html'
     email_template_name = 'accounts/password_reset.html'
     mail_title = "비밀번호 재설정"
@@ -74,18 +74,13 @@ class MyPasswordResetView(PasswordResetView):
         return super().form_valid(form)
 
 
+class MyPasswordEmailView(TemplateView):
+    template_name = 'accounts/password_email_done.html'
+
+
 class MyPasswordResetConfirmView(PasswordResetConfirmView):
     success_url = reverse_lazy('accounts:login')
     template_name = 'accounts/password_reset_confirm.html'
 
     def form_valid(self, form):
         return super().form_valid(form)
-
-
-def send_email(request):
-    subject = "메시지"
-    to = ['good19422@naver.com']
-    from_email = 'good19422@gmail.com'
-    message = "메시지를 성공적으로 전송"
-    EmailMessage(subject=subject, body=message,
-                 to=to, from_email=from_email).send()
