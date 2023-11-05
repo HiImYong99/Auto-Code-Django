@@ -131,13 +131,12 @@
           <!--author-->
           <!--post categories-->
           <div class="flex items-center justify-start mt-4 mb-4">
-              <a href="#"class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg hover:bg-gray-500 mr-4">{{post.category}}</a>
+              <p class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg">{{post.category}}</p>
            </div>
           <div class="mt-2">
               <!--post heading-->
             <div class='flex justify-between'>
-                  <p href="#"
-                      class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold ">{{post.title}}
+                  <p class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold ">{{post.title}}
                     </p>
                     <p>
                         {{ post.created_at|date:"Y.m.d" }} {{ post.created_at|date:"H:i" }} 
@@ -146,7 +145,7 @@
                                     <!--author avator-->
 <div class='flex justify-between'>
                      <div class="flex justify-start font-light text-gray-600">
-                        <a href="#" class="flex items-center mt-3 mb-3">
+                        <a class="flex items-center mt-3 mb-3">
                             {% if post.writer.profile_pic %}
                             <img src="{{post.writer.profile_pic.url}}"
                                 alt="avatar" class="hidden object-cover w-14 h-14 mx-4 rounded-full sm:block">
@@ -155,7 +154,7 @@
                                 <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
                               </svg>
                             {% endif %}
-                            <h1 class="font-bold text-gray-700 hover:underline">{{post.writer.nickname}}</h1>
+                            <h1 class="font-bold text-gray-700">{{post.writer.nickname}}</h1>
                         </a>
                   </div>
                       <!--post views-->
