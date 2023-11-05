@@ -5,9 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
-from .forms import PostForm, CommentForm, TagForm
-from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
+from .forms import PostForm, CommentForm
 from django.db.models import Q
 from datetime import date
 # Create your views here.
@@ -16,7 +14,7 @@ from datetime import date
 class PostListView(ListView):
     model = Post
     ordering = '-id'
-    paginate_by = 5
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,8 +86,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('board:postlist')
 
     def form_valid(self, form):
-        video = form.save(commit=False)  # commit=False는 DB에 저장하지 않고 객체만 반환
-        video.writer = self.request.user
+        post = form.save(commit=False)  # commit=False는 DB에 저장하지 않고 객체만 반환
+        post.writer = self.request.user
         return super().form_valid(form)  # 이렇게 호출했을 때 저장합니다.
 
     def handle_no_permission(self):
@@ -101,7 +99,7 @@ postcreate = PostCreateView.as_view()
 
 class PostUpdateView(UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content', 'file', 'category', 'tags']
+    fields = ['title', 'content', 'img', 'category']
     success_url = reverse_lazy('board:postlist')
 
     def test_func(self):
@@ -111,21 +109,21 @@ class PostUpdateView(UserPassesTestMixin, UpdateView):
 postupdate = PostUpdateView.as_view()
 
 
-# class PostDeleteView(UserPassesTestMixin, DeleteView):
-#     model = Post
-#     success_url = reverse_lazy('board:postlist')
+class PostDeleteView(UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('board:postlist')
 
-#     def test_func(self):
-#         return self.get_object().writer == self.request.user
+    def test_func(self):
+        return self.get_object().writer == self.request.user
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.test_func():
+            self.object.delete()
+            return HttpResponseRedirect(self.get_success_url())
 
 
-# postdelete = PostDeleteView.as_view()
-
-
-def post_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    post.delete()
-    return redirect('board:postlist')
+post_delete = PostDeleteView.as_view()
 
 
 @login_required
@@ -160,7 +158,7 @@ def likes(request, pk):
         post = Post.objects.get(pk=pk)
         if post.like_user.filter(pk=request.user.pk).exists():
             post.like_user.remove(request.user)
-        else:            # 좋아요 추가 (add)
+        else:
             post.like_user.add(request.user)
         return redirect('board:postdetail', pk=pk)
     return redirect('accounts:login')

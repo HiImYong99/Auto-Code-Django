@@ -1,18 +1,13 @@
-from django.core.mail.message import EmailMessage
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetConfirmView
-# from django.contrib.auth.forms import UserChangeForm
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
 from accounts.models import User
 from .forms import SignupForm, ChangeUserForm
 from board.models import Post, Comment
-from django.contrib.auth.mixins import LoginRequiredMixin
-# from .forms import CheckPasswordForm
-from django.contrib.auth.decorators import login_required
-from django.core.mail.message import EmailMessage
-
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth import get_user_model
 # Create your views here.
 
 
@@ -20,6 +15,20 @@ class UserCreateView(CreateView):
     form_class = SignupForm
     template_name = 'accounts/signup_form.html'
     success_url = settings.LOGOUT_URL
+
+
+class UserDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
+    template_name = 'accounts/user_confirm_delete.html'
+    model = get_user_model()
+
+    success_url = reverse_lazy('accounts:user_delete_success')
+
+    def test_func(self):
+        return self.get_object() == self.request.user
+
+
+class UserDeleteSuccessView(TemplateView):
+    template_name = 'accounts/user_delete_success.html'
 
 
 class UserLoginView(LoginView):
@@ -39,7 +48,7 @@ logout = LogoutView.as_view(
 
 
 class ProfileView(TemplateView, LoginRequiredMixin):
-    model = User
+    model = get_user_model()
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('accounts:profile')
     paginate_by = 1
@@ -55,9 +64,9 @@ class ProfileView(TemplateView, LoginRequiredMixin):
         return context
 
 
-class EditProfileView(UpdateView, LoginRequiredMixin):
+class EditProfileView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
     form_class = ChangeUserForm
-    model = User
+    model = get_user_model()
     template_name = 'accounts/edit_profile.html'
     success_url = reverse_lazy('accounts:edit_profile')
 
@@ -65,7 +74,7 @@ class EditProfileView(UpdateView, LoginRequiredMixin):
         return self.request.user
 
 
-class MyPasswordResetView(PasswordResetView):
+class MyPasswordResetView(PasswordResetView, LoginRequiredMixin, UserPassesTestMixin):
     success_url = reverse_lazy('accounts:password_email_done')
     template_name = 'accounts/password_reset_form.html'
     email_template_name = 'accounts/password_reset.html'
