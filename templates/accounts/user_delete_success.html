@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="flex flex-col justify-center items-center mt-20 bg-white">
+    <img src="{% static 'asset/img/auto-coding-logo.png' %}"
+      alt=""
+      class="object-cover w-1/2 h-32 flex flex-col justify-center items-center"
+    />
+    <div class="flex mt-26 justify-center flex-1">
+      <div class="max-w-xl px-4 py-8 mx-auto text-center">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+         탈퇴가 완료 되었습니다.
+        </h1>
+        <a href="{% url "main:index" %}"
+          class="inline-block px-5 py-3 mt-6 text-sm font-medium text-white bg-blue-500 rounded duration-200 hover:bg-red-500 focus:outline-none focus:ring">
+            메인으로
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endblock  %}
