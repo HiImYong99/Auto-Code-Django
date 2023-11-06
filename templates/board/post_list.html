@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load widget_tweaks %}
 {% block header %}
 <div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
     <nav class="flex items-center flex-shrink-0 mr-6">
@@ -128,18 +129,50 @@
 <div class='mt-36 flex flex-col justify-center items-center'>
     <div class="flex flex-col w-full h-full">
         <div class="-m-1.5 overflow-x-auto">
-          <div class="p-1.5 min-w-full inline-block align-middle">
+
+        <div class="p-1.5 min-w-full inline-block align-middle">
             <div class="overflow-hidden">
-              <table class="min-w-full divide-y divide-gray-200">
+                <div class="col-1">
+                </div>                   
+                <div>
+                    <p>최신 인기글 🔥</p>
+                    <div class="flex flex-col">
+                    {% for post in post_list|slice:":5" %}
+                    <ul>
+                    {% if post.like_user.all|length >= 3 %}
+                        <li>
+                            <a href="{% url "board:postdetail" post.pk %}" class='text-gray-500'>{{post.title}}</a>&nbsp 
+                            <a href="{% url "board:postdetail" post.pk %}#comment" class="text-sm text-blue-700 underline underline-offset-4">{{post.comment.all|length}}</a>&nbsp 
+                            <span class='text-sm'>👍 {{post.like_user.all|length}}</span>
+                        </li>   
+                    {% endif %}
+                    </ul>
+                    {% endfor %}
+                </div>
+            <div>
+                <form action="" mehtod='get' class='w-full flex flex-row justify-end my-5' id='sort'>
+                    <select name="s" id="sortSelect" class="p-2 border rounded-l-xl">
+                        <option value="desc" {% if request.GET.s == 'desc' %}selected{% endif %}>최신순</option>
+                        <option value="asc" {% if request.GET.s == 'asc' %}selected{% endif %}>오래된 순</option>
+                        <option value="like" {% if request.GET.s == 'like' %}selected{% endif %}>추천순</option>
+                        <option value="view" {% if request.GET.s == 'view' %}selected{% endif %}>조회순</option>
+                    </select>
+                    <button type="submit" class="p-2.5 text-sm font-medium text-white bg-blue-500 rounded-r-xl border border-blue-500 hover:bg-red-500 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300"><svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                    </button>
+                </form>
+            </div>
+            <table class="min-w-full divide-y divide-gray-200">
         <thead>
             <tr>
-                <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">주제</th>
-              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">제목</th>
-              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">댓글</th>
-              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">작성자</th>
-              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">날짜</th>
-              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">조회수</th>
-              <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">좋아요</th>
+            <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">주제</th>
+            <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">제목</th>
+            <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">댓글</th>
+            <th scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">작성자</th>
+            <th value="/" scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">날짜</th>
+            <th value="?sort=mypost" scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">조회 수</th>
+            <th value="?sort=likes" scope="col" class="px-6 py-3 text-left text-base font-medium text-gray-500">추천</th>
             </tr>
         </thead>
         <tbody>
@@ -150,14 +183,13 @@
         <td class="px-6 py-4 whitespace-nowrap text-base text-blue-700 underline underline-offset-8 "><a href="{% url "board:postdetail" post.pk %}">{{post.title}} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline">
             <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
           </svg>
-          
           </a></td>
         {% else %}
         <td class="px-6 py-4 whitespace-nowrap text-base text-blue-700 underline underline-offset-8"><a href="{% url "board:postdetail" post.pk %}">{{post.title}}</a></td>
         {% endif %}
-        <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">{{post.comment.all|length}}</td>
+        <td class="px-6 py-4 font-extrabold whitespace-nowrap text-base text-gray-800"><a href='{% url "board:postdetail" post.pk %}#comment'>{{post.comment.all|length}}</a></td>
         <td class="px-6 py-4 whitespace-nowrap text-base text-gray-800">
-            {% if user.profile_pic %}
+            {% if post.writer.profile_pic %}
             <img class="inline h-6 rounded-full"
                 src="{{post.writer.profile_pic.url}}">
                 {% else %}
@@ -183,14 +215,14 @@
 <div class="flex flex-row justify-center">
     <form action="" mehtod='get' class='flex flex-row w-1/3 mt-5'>
       <select name="c" id="category" class="p-2 mb-4 mr-2 border rounded-xl">
-          <option value="">전체</option>
-          <option value="자유">자유</option>
-          <option value="질문">질문</option>
-          <option value="고민">고민</option>
-          <option value="스터디">스터디</option>
+          <option value="" {% if request.GET.c == '' %}selected{% endif %}>전체</option>
+          <option value="자유" {% if request.GET.c == '자유' %}selected{% endif %}>자유</option>
+          <option value="질문" {% if request.GET.c == '질문' %}selected{% endif %}>질문</option>
+          <option value="고민" {% if request.GET.c == '고민' %}selected{% endif %}>고민</option>
+          <option value="스터디" {% if request.GET.c == '스터디' %}selected{% endif %}>스터디</option>
       </select>
           <div class="relative w-full">
-              <input type="search" name="q" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 " placeholder="제목을 입력하세요">
+              <input type="search" name="q" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 " placeholder="제목을 입력하세요" value="{{request.GET.q}}">
               <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-500 rounded-r-lg border border-blue-500 hover:bg-red-500 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300"><svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
     </svg>
@@ -242,6 +274,8 @@
         글 쓰기
       </button>
 </div>
+
+
 {% endblock  %}
 
 {% block footer %}
