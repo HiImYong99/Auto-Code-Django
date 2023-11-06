@@ -266,10 +266,10 @@
             {% endif %}
         </ul>
 </div>
-<div class="flex flex-row justify-between">
-    <button class="bg-red-500 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:popular_postlist"%}'">
+<div class="flex flex-row justify-end">
+    {% comment %} <button class="bg-red-500 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:popular_postlist"%}'">
         인기글🔥
-      </button>                
+      </button>                 {% endcomment %}
       <button class="bg-blue-500 hover:bg-red-500 duration-200 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postcreate" %}'">
         글 쓰기
       </button>
