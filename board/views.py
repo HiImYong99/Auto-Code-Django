@@ -50,44 +50,6 @@ class PostListView(ListView):
 postlist = PostListView.as_view()
 
 
-# class PopularPostListView(ListView):
-#     model = Post
-#     ordering = '-id'
-#     paginate_by = 5
-#     template_name = 'board/popular_post_list.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['popular_posts'] = Post.objects.annotate(
-#             like_count=Count('like_user')).filter(like_count__gte=1)
-#         context['today'] = date.today()
-#         return context
-
-#     def get_queryset(self):
-#         qs = super().get_queryset()
-#         q = self.request.GET.get('q', '')
-#         c = self.request.GET.get('c', '')
-#         s = self.request.GET.get('s', '')
-#         if q or c:
-#             qs = qs.filter(Q(title__icontains=q) & Q(category__icontains=c))
-#         if s:
-#             if s == 'desc':
-#                 return Post.objects.all().order_by('-id')
-#             elif s == 'asc':
-#                 return Post.objects.all().order_by('id')
-#             elif s == 'like':
-#                 return Post.objects.annotate(like_count=Count('like_user')).order_by('-like_count')
-#             elif s == 'view':
-#                 return Post.objects.all().order_by('-view_count')
-#             else:
-#                 return Post.objects.all().order_by('-id')
-
-#         return qs
-
-
-# popular_postlist = PopularPostListView.as_view()
-
-
 class PostDetailView(DetailView):
     model = Post
 

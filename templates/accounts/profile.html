@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load widget_tweaks %}
 {% block header %}
 <div class="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full p-6 bg-gray-400 opacity-95">
     <nav class="flex items-center flex-shrink-0 mr-6">
@@ -126,12 +126,9 @@
 
 {% block content %}
 
-    <!-- End of Navbar -->
     <div class="container mx-auto mt-20 ml-18">
         <div class="md:flex no-wrap md:-mx-2 ">
-            <!-- Left Side -->
             <div class="w-full md:w-3/12 md:mx-2 ">
-                <!-- Profile Card -->
                 <div class="bg-white p-3 mt-16">
                     <ul
                         class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
@@ -153,14 +150,10 @@
                         </li>                        
                     </ul>
                 </div>
-                <!-- End of profile card -->
                 <div class="my-4 "></div>
                
             </div>
-            <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 ml-20 h-64">
-                <!-- Profile tab -->
-                <!-- About Section -->
                 <div class="bg-white p-3 shadow-sm rounded-sm">
                     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                         <span clas="text-green-500">
@@ -208,6 +201,7 @@
 
                 <!-- Experience and education -->
                 <div class="bg-white p-3 shadow-sm rounded-sm">
+                    <p class='text-red-500 text-sm'>* 최근 5개 게시물만 표시됩니다.</p>
                     <div class="grid grid-cols-3">
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
@@ -221,7 +215,7 @@
                                 <span class="tracking-wide">내 글</span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for post in posts %}
+                                {% for post in posts|slice:':5' %}
                                 <li>
                                     <a href="{% url "board:postdetail" post.pk %}" class="text-blue-800 cursor-pointer">{{post.title}}</a>
                                     <div class="text-gray-500 text-xs">{{post.created_at|date:"Y-m-d"}} {{post.created_at|date:"H:i"}}</div>
@@ -239,7 +233,7 @@
                                 <span class="tracking-wide">내 댓글</span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for comment in comments %}
+                                {% for comment in comments|slice:':5' %}
                                 <li>
                                     <a href="{% url "board:postdetail" comment.post.pk %}" class="text-blue-800 cursor-pointer">{{comment.message}}</a>                  
                                     <div class="text-gray-500 text-xs">{{comment.created_at|date:"Y-m-d"}} {{comment.created_at|date:"H:i"}}</div>
@@ -247,7 +241,6 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                    <!-- End of Experience and education grid -->
                         <div>
                             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                                 <span clas="text-green-500">
@@ -258,17 +251,14 @@
                                 <span class="tracking-wide">내 추천 </span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for post in likes %}
+                                {% for post in likes|slice:':5' %}
                                 <li>
                                     <a href="{% url "board:postdetail" post.pk %}" class="text-blue-800 cursor-pointer">{{post.title}}</a>
                                     <div class="text-gray-500 text-xs">{{post.created_at|date:"Y-m-d"}} {{post.created_at|date:"H:i"}}</div>
                                 </li>
                                 {% endfor %}
                             </ul>
-
                         </div>
-            <!-- End of Experience and education grid -->
-                <!-- End of profile tab -->
         </div>
     </div>
 </div>
