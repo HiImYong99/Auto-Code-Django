@@ -125,16 +125,12 @@
 </div>      
 {% endblock  %}
 {% block content %}
-<!-- component -->
 <div class="mt-20">
     <div class=" px-10 py-6 mx-auto"> 
-          <!--author-->
-          <!--post categories-->
           <div class="flex items-center justify-start mt-4 mb-4">
               <p class="px-2 py-1 font-bold bg-red-400 text-white rounded-lg">{{post.category}}</p>
            </div>
           <div class="mt-2">
-              <!--post heading-->
             <div class='flex justify-between'>
                   <p class="sm:text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold ">{{post.title}}
                     </p>
@@ -142,7 +138,6 @@
                         {{ post.created_at|date:"Y.m.d" }} {{ post.created_at|date:"H:i" }} 
                     </p>
 </div>
-                                    <!--author avator-->
 <div class='flex justify-between'>
                      <div class="flex justify-start font-light text-gray-600">
                         <a class="flex items-center mt-3 mb-3">
@@ -192,11 +187,7 @@
 {% endif %}
 <hr class="h-px mt-2  bg-gray-200 border-0 ">
 </div>
-         <!--end post header-->
-              <!--post content-->
    <div class=" mx-auto text-xl text-gray-700 mt-4 rounde">
-
-       <!--content body-->
        <div class="flex flex-col mt-2 p-8">
               <p>{{post.content|safe}}</p>
               {% if post.img %}
@@ -231,12 +222,12 @@
           </p>
         </form>
 
-        <!-- 댓글 -->
         <section class="bg-white  py-8 lg:py-16 antialiased">
             <button class="bg-gray-400 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postlist"%}'">
                 목록
-            </button>        
-            <div class="max-w-2xl mx-auto px-4">
+            </button>
+            <!-- 댓글 -->
+            <div class="max-w-2xl mx-auto px-4" id='comment'>
                 <div class="flex justify-between items-center mb-6">
                   <h2 class="text-lg lg:text-2xl font-bold text-gray-900 ">댓글 ({{post.comment.all|length}})</h2>
               </div>
@@ -251,6 +242,7 @@
                   </button>
               </form>
               {% for comment in post.comment.all %}
+
               <article class="p-6 mb-3 text-base bg-white border-t border-gray-200  ">
                 <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">

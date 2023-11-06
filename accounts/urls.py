@@ -18,10 +18,4 @@ urlpatterns = [
          name='password_email_done'),
     path('reset/<uidb64>/<token>/', views.MyPasswordResetConfirmView.as_view(),
          name='password_reset_confirm'),
-    # path('edit/password/', views.EditProfileView.as_view(), name='edit_password'),
-    # path('profile/delete/', views.profile_delete_view, name='profile_delete'),
-    # reset pw
-
-
-    # path('asdf/', views.send_email),
 ]
