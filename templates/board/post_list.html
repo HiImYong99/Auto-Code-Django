@@ -137,15 +137,13 @@
                 <div>
                     <p>최신 인기글 🔥</p>
                     <div class="flex flex-col">
-                    {% for post in post_list|slice:":5" %}
+                        {% for post in liked_posts|slice:':5'%}
                     <ul>
-                    {% if post.like_user.all|length >= 3 %}
                         <li>
                             <a href="{% url "board:postdetail" post.pk %}" class='text-gray-500'>{{post.title}}</a>&nbsp 
                             <a href="{% url "board:postdetail" post.pk %}#comment" class="text-sm text-blue-700 underline underline-offset-4">{{post.comment.all|length}}</a>&nbsp 
                             <span class='text-sm'>👍 {{post.like_user.all|length}}</span>
                         </li>   
-                    {% endif %}
                     </ul>
                     {% endfor %}
                 </div>
@@ -269,7 +267,7 @@
 <div class="flex flex-row justify-end">
     {% comment %} <button class="bg-red-500 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:popular_postlist"%}'">
         인기글🔥
-      </button>                 {% endcomment %}
+      </button>               {% endcomment %}
       <button class="bg-blue-500 hover:bg-red-500 duration-200 text-white font-bold py-2 px-4 rounded-full"onclick="location.href='{% url "board:postcreate" %}'">
         글 쓰기
       </button>
@@ -279,7 +277,7 @@
 {% endblock  %}
 
 {% block footer %}
-<footer class="flex flex-row fixed bottom-0 items-center justify-between w-full px-12 py-3 mt-20" style="background-color:#ddd;">
+<footer class="flex flex-row items-center justify-between w-full px-12 py-3 mt-20" style="background-color:#ddd;">
     <p class="text-sm font-bold">Copyright © Auto Coding 2023</p>
     <nav>
         <div class="flex flex-row gap-10 text-md">

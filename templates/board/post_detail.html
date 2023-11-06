@@ -309,3 +309,24 @@
           {% endwith %}
         </div>
         {% endblock  %}
+
+{% block footer %}
+<footer class="flex flex-row items-center justify-between w-full px-12 py-3 mt-20" style="background-color:#ddd;">
+    <p class="text-sm font-bold">Copyright © Auto Coding 2023</p>
+    <nav>
+        <div class="flex flex-row gap-10 text-md">
+            <div class="rounded-full">
+                <a href="https://www.instagram.com/yong.9_9/" target="_blank">
+                    <img class="w-10" src="{% static "asset/img/instagram.png" %}" alt="인스타그램">
+                </a>
+            </div>
+            <div class="rounded-full">
+                <a href="https://github.com/HiImYong99" target="_blank">
+                    <img class="w-10" src="{% static "asset/img/github.png" %}" alt="깃허브">
+                </a>
+            </div>
+        </div>
+    </nav>
+</footer>
+{% endblock  %}
+

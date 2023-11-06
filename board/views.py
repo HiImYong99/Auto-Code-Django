@@ -20,6 +20,8 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['liked_posts'] = Post.objects.annotate(
+            like_count=Count('like_user')).filter(like_count__gte=0)
         context['today'] = date.today()
         return context
 
@@ -56,6 +58,8 @@ postlist = PostListView.as_view()
 
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
+#         context['popular_posts'] = Post.objects.annotate(
+#             like_count=Count('like_user')).filter(like_count__gte=1)
 #         context['today'] = date.today()
 #         return context
 
