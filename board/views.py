@@ -51,7 +51,7 @@ postlist = PostListView.as_view()
 class PopularPostListView(ListView):
     model = Post
     ordering = '-id'
-    paginate_by = 3
+    paginate_by = 5
     template_name = 'board/popular_post_list.html'
 
     def get_context_data(self, **kwargs):
@@ -63,8 +63,21 @@ class PopularPostListView(ListView):
         qs = super().get_queryset()
         q = self.request.GET.get('q', '')
         c = self.request.GET.get('c', '')
+        s = self.request.GET.get('s', '')
         if q or c:
             qs = qs.filter(Q(title__icontains=q) & Q(category__icontains=c))
+        if s:
+            if s == 'desc':
+                return Post.objects.all().order_by('-id')
+            elif s == 'asc':
+                return Post.objects.all().order_by('id')
+            elif s == 'like':
+                return Post.objects.annotate(like_count=Count('like_user')).order_by('-like_count')
+            elif s == 'view':
+                return Post.objects.all().order_by('-view_count')
+            else:
+                return Post.objects.all().order_by('-id')
+
         return qs
 
 
