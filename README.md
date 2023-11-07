@@ -487,7 +487,7 @@ deactivate
 
 ## <span id="errors">겪었던 에러들 😑
 
-- 이번 프로젝트를 진행하며 겪었던 에러들 노션에 따로 정리 했습니다.
+- 이번 프로젝트를 진행하며 겪었던 에러들은 노션에 따로 정리 했습니다.
 
 <img src="readfile/errors.png">
 
