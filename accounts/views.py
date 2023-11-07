@@ -58,11 +58,12 @@ class ProfileView(TemplateView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['posts'] = Post.objects.filter(writer=self.request.user)[-1:-6]
+        context['posts'] = Post.objects.filter(
+            writer=self.request.user).order_by('-created_at')[:5]
         context['likes'] = Post.objects.filter(
-            like_user=self.request.user)[-1:-6]
+            like_user=self.request.user).order_by('-created_at')[:5]
         context['comments'] = Comment.objects.filter(
-            writer=self.request.user)[-1:-6]
+            writer=self.request.user).order_by('-created_at')[:5]
         return context
 
 
