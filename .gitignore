@@ -145,4 +145,3 @@ node_modules
 .config_secret/
 my_settings.py
 .ssh
-readfile
