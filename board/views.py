@@ -21,7 +21,7 @@ class PostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['liked_posts'] = Post.objects.annotate(
-            like_count=Count('like_user')).filter(like_count__gte=3)
+            like_count=Count('like_user')).filter(like_count__gte=0).order_by('-created_at')[:5]
         context['today'] = date.today()
         return context
 
