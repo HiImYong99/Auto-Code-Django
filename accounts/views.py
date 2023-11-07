@@ -39,7 +39,7 @@ class UserLoginView(LoginView):
         if next_url:
             return next_url
         else:
-            return reverse_lazy('board:postlist')
+            return reverse_lazy('main:index')
 
 
 logout = LogoutView.as_view(
