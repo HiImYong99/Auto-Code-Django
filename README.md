@@ -130,15 +130,13 @@ deactivate
 ---
 ## <span id="planning"> 프로젝트 일정 🗓️
 
-![Alt text](readfile/plan.png)
-
+<img src="readfile/plan.png"> 
 
 ---
 
 ## <span id="requirement"> 요구사항 🧐
 
-![Alt text](readfile/requirement.png)
-
+<img src="readfile/requirement.png">
 
 
 <a href='#main-exe'>기능 시연 화면</a>
@@ -275,7 +273,7 @@ deactivate
 
 ## <span id="erd"> ERD 설계 📀
 
-![Alt text](readfile/Django-mini-1-erd.png)
+<img src="readfile/Django-mini-1-erd.png">
 
 ---
 
@@ -293,7 +291,7 @@ deactivate
 
 |               메인 페이지               |
 | :-------------------------------------: |
-| ![Alt text](readfile/main.png)  |
+| <img src="readfile/main.png">  |
 
 #### ⭐️ 커뮤니티
 
@@ -321,7 +319,7 @@ deactivate
 
 |                회원가입 및 로그인                |
 | :-------------------------------------: |
-| ![Alt text](readfile/signup_login.gif) |
+| <img src="readfile/signup_login.gif"> |
 
 ```
 이메일과 비밀번호를 통한 회원가입 및 로그인을 할 수 있습니다.
@@ -329,7 +327,7 @@ deactivate
 
 |                로그아웃               |
 | :-------------------------------------: |
-| ![Alt text](readfile/logout.gif) |
+| <img src="readfile/logout.gif"> |
 
 ```
 로그아웃 버튼을 통해 유저는 로그아웃을 할 수 있습니다.
@@ -339,7 +337,7 @@ deactivate
 
 |                 내 정보                 |
 | :-------------------------------------: |
-| ![Alt text](readfile/myprofile.gif)  |
+| <img src="readfile/myprofile.gif">  |
 
 ```
 회원가입한 유저는 회원 가입일, 최근 로그인, 작성 글 수, 작성 댓글 수를 확인할 수 있는 기능을 제공합니다.
@@ -353,7 +351,7 @@ deactivate
 
 |                회원 정보 수정                 |
 | :-------------------------------------: |
-| ![Alt text](readfile/edit_profile.gif) |
+| <img src="readfile/edit_profile.gif"> |
 
 ```
 회원가입 시 작성한 닉네임을 수정할 수 있으며 프로필 사진을 설정하거나 수정할 수 있는 기능을 제공합니다.
@@ -363,7 +361,7 @@ deactivate
 
 |                비밀번호 변경               |
 | :-------------------------------------: |
-| ![Alt text](readfile/change_password.gif) |
+| <img src="readfile/change_password.gif"> |
 
 ```
 회원가입 시 작성한 이메일 인증을 통해 비밀번호를 변경할 수 있습니다.
@@ -378,7 +376,7 @@ deactivate
 
 |                 회원 탈퇴                |
 | :-------------------------------------: |
-| ![Alt text](readfile/delete_user.gif) |
+| <img src="readfile/delete_user.gif"> |
 
 ```
 회원을 탈퇴할 수 있는 기능을 제공하며 삭제된 유저의 정보는 접근 및 복구가 불가능 합니다.
@@ -395,7 +393,7 @@ deactivate
 
 |              게시글 목록 및 검색             |
 | :----------------------------------: |
-|  ![Alt text](readfile/postlist.gif) |
+|  <img src="readfile/postlist.gif"> |
 
 ```
 유저들은 게시판 게시글의 목록을 확인 할 수 있으며 최신 인기글 또한 확인할 수 있는 기능을 제공합니다.
@@ -412,7 +410,7 @@ deactivate
 
 |      게시글 작성       |
 | :-------------------------------------: |
-|  ![Alt text](readfile/postwrite.gif) |
+|  <img src="readfile/postwrite.gif"> |
 
 ```
 해당 기능은 제목과 내용, 사진 업로드를 제공합니다.
@@ -424,7 +422,7 @@ deactivate
 
 |               게시글 상세                |
 | :------------------------------------: |
-|  ![Alt text](readfile/postdetail.gif) |
+|  <img src="readfile/postdetail.gif"> |
 
 ```
 유저들이 게시한 제목과 내용, 사진을 확인 할 수 있습니다.
@@ -438,7 +436,7 @@ deactivate
 
 |               게시글 수정                 |
 | :------------------------------------: |
-|  ![Alt text](readfile/postedit.gif) |
+|  <img src="readfile/postedit.gif"> |
 
 ```
 본인이 작성한 게시글을 수정할 수 있으며 본인 게시글이 아니면 수정이 불가능합니다.
@@ -450,7 +448,7 @@ deactivate
 
 |                게시글 삭제                 |
 | :------------------------------------: |
-|  ![Alt text](readfile/postdelete.gif) |
+|  <img src="readfile/postdelete.gif"> |
 
 ```
 본인이 작성한 게시글을 삭제할 수 있으며 본인 게시글이 아니면 삭제가 불가능합니다.
@@ -461,7 +459,7 @@ deactivate
 
 |                에러 페이지                 |
 | :------------------------------------: |
-|  ![Alt text](readfile/erros.png) |
+|  <img src="readfile/erros.png"> |
 
 ```
 존재하지 않거나 삭제된 게시글에 접근시 잘못된 접근임을 알리는 페이지 입니다.
@@ -482,7 +480,7 @@ deactivate
 
 - 이번 프로젝트를 진행하며 겪었던 에러들 노션에 따로 정리 했습니다.
 
-![Alt text](readfile/errors.png)
+<img src="readfile/errors.png">
 
 > **🔗 Errors**: <a href="https://best-laugh-8f1.notion.site/b8d6fad6751c4ba4872871fd10023a3c?pvs=4" target="_blank">노션 링크 </a>  <br>
 
