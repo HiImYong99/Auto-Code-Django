@@ -23,13 +23,13 @@
 1. [프로젝트 소개](#summary)
 2. [배포 URL](#url)
 3. [설치 및 실행](#install)
-4. [요구사항 분석](#requirement)
-5. [프로젝트 일정](#planning)
+4. [프로젝트 일정](#planning)
+5. [요구사항 분석](#requirement)
 6. [기술 스택](#stack)
-8. [프로젝트 구조](#tree)
-9. [ERD](#erd)
-10. [화면 구성 및 주요 기능](#main-exe)
-11. [겪었던 에러들](#errors)
+7. [프로젝트 구조](#tree)
+8. [ERD 설계](#erd)
+9. [상세 페이지 설명](#main-exe)
+10. [겪었던 에러들](#errors)
 12. [느낀점](#impression)
 
 ---
@@ -134,7 +134,7 @@ deactivate
 
 ---
 
-## <span id="requirement"> 요구사항 🧐
+## <span id="requirement"> 요구사항 분석 🧐
 
 <img src="readfile/requirement.png">
 
@@ -422,13 +422,22 @@ deactivate
 
 |               게시글 상세                |
 | :------------------------------------: |
-|  <img src="readfile/postdetail.gif"> |
+|  <img src="readfile/post_detail.gif"> |
 
 ```
 유저들이 게시한 제목과 내용, 사진을 확인 할 수 있습니다.
 
 조회수 기능을 제공하며 마음에 드는 글에 좋아요를 남길수도 있습니다.
 
+```
+
+<br>
+
+|               댓글 작성 및 삭제               |
+| :------------------------------------: |
+|  <img src="readfile/comment.gif"> |
+
+```
 다른 유저들과 소통이 가능하도록 댓글 작성 및 삭제 기능을 제공합니다.
 ```
 
