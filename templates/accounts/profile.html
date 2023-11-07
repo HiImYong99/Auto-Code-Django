@@ -215,7 +215,7 @@
                                 <span class="tracking-wide">내 글</span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for post in posts|slice:':5' %}
+                                {% for post in posts %}
                                 <li>
                                     <a href="{% url "board:postdetail" post.pk %}" class="text-blue-800 cursor-pointer">{{post.title}}</a>
                                     <div class="text-gray-500 text-xs">{{post.created_at|date:"Y-m-d"}} {{post.created_at|date:"H:i"}}</div>
@@ -233,7 +233,7 @@
                                 <span class="tracking-wide">내 댓글</span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for comment in comments|slice:':5' %}
+                                {% for comment in comments %}
                                 <li>
                                     <a href="{% url "board:postdetail" comment.post.pk %}" class="text-blue-800 cursor-pointer">{{comment.message}}</a>                  
                                     <div class="text-gray-500 text-xs">{{comment.created_at|date:"Y-m-d"}} {{comment.created_at|date:"H:i"}}</div>
@@ -251,7 +251,7 @@
                                 <span class="tracking-wide">내 추천 </span>
                             </div>
                             <ul class="list-inside space-y-2">
-                                {% for post in likes|slice:':5' %}
+                                {% for post in likes %}
                                 <li>
                                     <a href="{% url "board:postdetail" post.pk %}" class="text-blue-800 cursor-pointer">{{post.title}}</a>
                                     <div class="text-gray-500 text-xs">{{post.created_at|date:"Y-m-d"}} {{post.created_at|date:"H:i"}}</div>
