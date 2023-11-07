@@ -1,6 +1,6 @@
 <div align='center'>
 
-# Auto-Coding
+# Auto-Code-Django
 
 </div>
 <div align="center">
@@ -10,7 +10,7 @@
 
 </div>
 
-## Auto Coding
+## Auto-Code-Django
 
 - 1차 개발기간: 23.08.29 ~ 23.09.06 (9일)
 
