@@ -115,7 +115,7 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
 post_delete = PostDeleteView.as_view()
 
 
-class PostCommentView(CreateView, LoginRequiredMixin):
+class PostCommentView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CommentForm
 
@@ -129,6 +129,9 @@ class PostCommentView(CreateView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse_lazy('board:postdetail', args=[self.get_object().pk])
 
+    def handle_no_permission(self):
+        return HttpResponseRedirect(reverse_lazy('accounts:login'))
+
 
 @login_required
 def comment_delete(request, pk):
@@ -138,7 +141,6 @@ def comment_delete(request, pk):
     return redirect('board:postdetail', post_id)
 
 
-@login_required
 def likes(request, pk):
     if request.user.is_authenticated:
         post = Post.objects.get(pk=pk)
