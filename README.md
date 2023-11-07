@@ -6,7 +6,7 @@
 <div align="center">
 <img width="329" src="static/asset/img/auto-coding-logo.png" >
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fhiimyong99.github.io%2FAuto-Code-Django&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+<!-- [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fhiimyong99.github.io%2FAuto-Code-Django&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com) -->
 
 </div>
 
@@ -323,6 +323,7 @@ deactivate
 
 ```
 이메일과 비밀번호를 통한 회원가입 및 로그인을 할 수 있습니다.
+
 ```
 
 |                로그아웃               |
@@ -331,6 +332,9 @@ deactivate
 
 ```
 로그아웃 버튼을 통해 유저는 로그아웃을 할 수 있습니다.
+
+로그아웃 완료 시 메인페이지로 이동합니다.
+
 ```
 
 <br>
@@ -368,7 +372,7 @@ deactivate
 
 이메일로 전송된 링크는 10분간 유효하며 10분 뒤에는 form 을 입력할 수 없습니다.
 
-위 메일은 Gmail SMTP를 사용하여 발신되었습니다.
+메일은 PasswordResetView, Gmail SMTP를 사용하여 발신되었습니다.
 ```
 
 
@@ -382,6 +386,8 @@ deactivate
 회원을 탈퇴할 수 있는 기능을 제공하며 삭제된 유저의 정보는 접근 및 복구가 불가능 합니다.
 
 또한, 탈퇴시 유저가 작성했던 글, 댓글은 모두 삭제됩니다.
+
+탈퇴 완료 시 메인 페이지로 이동합니다.
 ``` 
 
 <br>
@@ -416,6 +422,8 @@ deactivate
 해당 기능은 제목과 내용, 사진 업로드를 제공합니다.
 
 해당 기능은 로그인을 한 유저만 사용 가능합니다.
+
+작성 완료 시 게시글 목록 페이지로 이동합니다.
 ```
 
 <br>
@@ -451,6 +459,8 @@ deactivate
 본인이 작성한 게시글을 수정할 수 있으며 본인 게시글이 아니면 수정이 불가능합니다.
 
 제목과 내용은 물론 업로드한 사진 또한 수정할 수 있습니다.
+
+수정 완료 시 게시글 목록 페이지로 이동합니다.
 ```
 
 <br>
@@ -463,6 +473,8 @@ deactivate
 본인이 작성한 게시글을 삭제할 수 있으며 본인 게시글이 아니면 삭제가 불가능합니다.
 
 삭제된 게시글은 접근 및 복구가 불가능 합니다.
+
+삭제 완료 시 게시글 목록 페이지로 이동합니다.
 ```
 <br>
 
