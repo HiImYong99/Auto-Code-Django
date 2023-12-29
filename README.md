@@ -50,7 +50,7 @@ Auto-Coding은 AI가 코드를 대신 작성해 주는 서비스입니다.
 
 
 
-> **🔗 : <a href="http://15.165.202.70:8000/" target="_blank"> Auto Coding 바로가기</a>
+> **🔗 : ~~<a href="http://15.165.202.70:8000/" target="_blank"> Auto Coding 바로가기</a>~~ 배포중단
 ```
 해당 서비스를 이용할 수 있는 테스트 계정입니다.
 ID : test001@gmail.com
